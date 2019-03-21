@@ -1,11 +1,14 @@
 package Tests;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import Crawl.Pixel;
 import Crawl.Point;
 import Crawl.Sprite;
 import Crawl.Square;
@@ -13,44 +16,57 @@ import Crawl.Square;
 import org.junit.jupiter.api.Test;
 
 class SpriteTest {
-    static final char START_OF_NEW_PIXEL = '@';
-	final String examplePixelBig = "\033[48;5;" + 150 + "m  " + "\033[0m";
-	final String examplePixelMedium = "\033[48;5;" + 50 + "m  " + "\033[0m";
-	final String examplePixelSmall = "\033[48;5;" + 5 + "m  " + "\033[0m";
-	@Test
-	void loadSpriteFromFileTest() throws FileNotFoundException, IOException 
+	void writeDataToFile(String filename, String data) throws IOException
 	{
-		Sprite newSprite = Sprite.loadSpriteFromFile("C:\\Users\\marti\\eclipse-workspace\\CrawlEclipse\\Media\\left.img");
-		System.out.println("Hello");
+    	try(FileWriter fileWriter = new FileWriter(filename))
+    	{
+    		fileWriter.write(data);
+    	}
 	}
-	void populateListWithAllBigPixels(Point size, ArrayList<Byte> bytelist)
+	
+	void SpriteShouldHavePixelvals(Sprite sprite, int[][] values)
 	{
-		for(int height = 0; height < size.getY(); height++)
+		for(int y = 0; y < values.length; y++)
 		{
-			
-			for(int width = 0; width < size.getX(); width++)
+			for(int x = 0; x < values[0].length; x++)
 			{
-				bytelist.add((byte)START_OF_NEW_PIXEL);
-				for(int cha = 0; cha < examplePixelBig.length(); cha++)
-				{
-					char newCHar = examplePixelBig.charAt(cha);
-					bytelist.add((byte)(newCHar));
-				}
-				bytelist.add((byte)' ');
+				Pixel pix = sprite.getPixel(new Point(x,y));
+				assertTrue(pix != null);
+				assertTrue(pix.getColor() == values[y][x]);
 			}
-			bytelist.add((byte)'\n');
-		}		
+		}
+	}
+
+	@Test
+	void pasteToSameSizeTest() throws IOException
+	{
+		writeDataToFile("testfile.txt", "10 20 30\n 40 50 60");
+		Sprite srcSprite = Sprite.loadSpriteFromFile("testfile.txt");
+		Sprite targetSprite = new Sprite(new Square(new Point(0,0), new Point(3,2)));
+		targetSprite.paste(srcSprite);
+		int[][] expected = {{10, 20, 30}, {40, 50, 60}};
+		SpriteShouldHavePixelvals(targetSprite, expected);
 	}
 	
 	@Test
-	void extractPixelsFromByteListTest()
+	void pasteToSmallerTest() throws IOException
 	{
-		{
-			ArrayList<Byte> fakeImg = new ArrayList<Byte>();
-			populateListWithAllBigPixels(new Point(10,10), fakeImg);
-//			Sprite newSprite = Sprite.ExtractPixelsFromByteList(fakeImg);
-//			assertTrue(newSprite.GetSize().Equals(new Point(10,10)));
-		}
+		writeDataToFile("testfile.txt", "10 20 30\n 40 50 60");
+		Sprite srcSprite = Sprite.loadSpriteFromFile("testfile.txt");
+		Sprite targetSprite = new Sprite(new Square(new Point(0,0), new Point(2,1)));
+		targetSprite.paste(srcSprite);
+		int[][] expected = {{10, 20}};
+		SpriteShouldHavePixelvals(targetSprite, expected);
 	}
-	 
+	
+	@Test
+	void pasteToLargerTest() throws IOException
+	{
+		writeDataToFile("testfile.txt", "10 20 30\n 40 50 60");
+		Sprite srcSprite = Sprite.loadSpriteFromFile("testfile.txt");
+		Sprite targetSprite = new Sprite(new Square(new Point(0,0), new Point(4,3)));
+		targetSprite.paste(srcSprite);
+		int[][] expected = {{10, 20, 30, 0}, {40, 50, 60, 0}, {0, 0, 0, 0}};
+		SpriteShouldHavePixelvals(targetSprite, expected);
+	}
 }

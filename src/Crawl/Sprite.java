@@ -11,13 +11,20 @@ public class Sprite
     {
     	dimensions = _dimensions;
     	pixels = new Pixel[dimensions.getSize().getY()][dimensions.getSize().getX()];
+    	clearSpriteToPixel(new Pixel(0));
     }
-    
+    public Sprite(Sprite another) 
+    {
+    	dimensions = new Square(another.dimensions);
+    	pixels = new Pixel[dimensions.getSize().getY()][dimensions.getSize().getX()];
+    	paste(another);
+    }
+
     static public Sprite loadSpriteFromFile(String path) throws FileNotFoundException, IOException
     {
     	return SpriteLoader.loadSpriteFromFile(path);
     }
-
+    
     public Point getSize()
     {
         return dimensions.getSize();
@@ -48,6 +55,21 @@ public class Sprite
     	}
     }
     
+    public void clearSpriteToPixel(Pixel pix)
+    {
+    	for(int y = 0; y < dimensions.getSize().getY(); y++)
+    	{
+    		for(int x = 0; x < dimensions.getSize().getX(); x++)
+    		{
+    			Point pos = new Point(x,y);
+				setPixel(pos, pix);
+    		}
+    	}
+    }
+    
+    /*
+     * Pastes other sprite onto me. 
+     */
     public void paste(Sprite otherSprite)
     {
     	for(int y = 0; y < otherSprite.dimensions.getSize().getY(); y++)

@@ -10,7 +10,12 @@ public class Point
         y = _y;
     }
 
-    public int getX()
+    public Point(Point otherPoint) {
+    	x = otherPoint.x;
+    	y = otherPoint.y;
+	}
+
+	public int getX()
     {
         return x;
     }

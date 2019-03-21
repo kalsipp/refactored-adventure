@@ -9,6 +9,12 @@ public class Square {
 		size = _size;
 	}
 	
+	public Square(Square dimensions) 
+	{
+		position = new Point(dimensions.position);
+		size = new Point(dimensions.size);
+	}
+
 	public Point getPosition()
 	{
 		return position;

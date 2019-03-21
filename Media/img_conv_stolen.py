@@ -358,6 +358,8 @@ RGB2SHORT_DICT, SHORT2RGB_DICT = _create_dicts()
 if __name__ == '__main__':
     from PIL import Image
     parts = sys.argv[1].split('.')
+    if len(parts) != 2:
+        raise AssertionError("Incorrect arguments, Example usage: script.py name.jpg")
     output_filename = parts[0] + '.img'
     f = open(output_filename, 'w')
     im = Image.open(sys.argv[1])
