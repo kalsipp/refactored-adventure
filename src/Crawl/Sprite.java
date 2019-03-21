@@ -1,8 +1,6 @@
 package Crawl;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 public class Sprite
 {
     Pixel[][] pixels;
@@ -13,6 +11,7 @@ public class Sprite
     	pixels = new Pixel[dimensions.getSize().getY()][dimensions.getSize().getX()];
     	clearSpriteToPixel(new Pixel(0));
     }
+    
     public Sprite(Sprite another) 
     {
     	dimensions = new Square(another.dimensions);
@@ -55,6 +54,9 @@ public class Sprite
     	}
     }
     
+    /*
+     * Set the whole sprite to this pixel's color.
+     */
     public void clearSpriteToPixel(Pixel pix)
     {
     	for(int y = 0; y < dimensions.getSize().getY(); y++)

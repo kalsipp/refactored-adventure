@@ -9,20 +9,16 @@ public class SpriteLoader {
     /**
      * Loads the image in the path and returns a Sprite from it. 
      * Images have to be perfectly rectangular. 
-     * @param path
-     * @return
-     * @throws FileNotFoundException
-     * @throws IOException
      */
     static public Sprite loadSpriteFromFile(String path) throws FileNotFoundException, IOException
     {
     	StringBuilder dataDump = new StringBuilder();
     	readFileToString(path, dataDump);
-    	Sprite newSprite = extractPixelsFromByteList(dataDump.toString());
+    	Sprite newSprite = extractPixelsFromString(dataDump.toString());
     	return newSprite;
     }
     
-    private static Sprite extractPixelsFromByteList(String readChars) 
+    private static Sprite extractPixelsFromString(String readChars) 
     {
     	Point spriteSize = getFilesSpriteDimensions(readChars);
     	

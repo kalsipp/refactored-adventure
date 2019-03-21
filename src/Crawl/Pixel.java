@@ -21,7 +21,7 @@ public class Pixel
     	return color;
     }
     
-    public String getValue()
+    public String getString()
     {
         return "\033[48;5;" + color + "m  " + "\033[0m";
     }

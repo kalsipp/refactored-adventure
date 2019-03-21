@@ -1,12 +1,9 @@
 package Tests;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import Crawl.Pixel;
 import Crawl.Point;

@@ -1,10 +1,8 @@
 package Crawl;
-//import java.awt.Graphics2D;
 
 import java.io.Console;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Crawler 
 {
@@ -16,7 +14,7 @@ public class Crawler
 
         for(int i = 0; i < 10; i++)
         {
-        	String input = console.readLine();
+        	console.readLine();
 
         	if(x%2 == 0)
         	{
@@ -29,7 +27,7 @@ public class Crawler
         		Canvas.paintSprite(exampleSprite);
         	}
         	x++;
-	    	Canvas.print();
+	    	Canvas.render();
         }
     }
 }	
