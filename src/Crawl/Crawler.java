@@ -19,12 +19,12 @@ public class Crawler
         	if(x%2 == 0)
         	{
         		Sprite exampleSprite = Sprite.loadSpriteFromFile("C:/Users/marti/eclipse-workspace/CrawlEclipse/Media/left.img");
-        		Canvas.paintSprite(exampleSprite);
+        		Canvas.paintSprite(exampleSprite, Point.zero());
         	}
         	else
         	{
         		Sprite exampleSprite = Sprite.loadSpriteFromFile("C:/Users/marti/eclipse-workspace/CrawlEclipse/Media/path6.img");
-        		Canvas.paintSprite(exampleSprite);
+        		Canvas.paintSprite(exampleSprite, Point.zero());
         	}
         	x++;
 	    	Canvas.render();

@@ -4,19 +4,19 @@ import java.io.IOException;
 public class Sprite
 {
     Pixel[][] pixels;
-    Square dimensions;
-    public Sprite(Square _dimensions)
+    Point size;
+    public Sprite(Point _size)
     {
-    	dimensions = _dimensions;
-    	pixels = new Pixel[dimensions.getSize().getY()][dimensions.getSize().getX()];
+    	size = _size;
+    	pixels = new Pixel[size.getY()][size.getX()];
     	clearSpriteToPixel(new Pixel(0));
     }
     
     public Sprite(Sprite another) 
     {
-    	dimensions = new Square(another.dimensions);
-    	pixels = new Pixel[dimensions.getSize().getY()][dimensions.getSize().getX()];
-    	paste(another);
+    	size = new Point(another.size);
+    	pixels = new Pixel[size.getY()][size.getX()];
+    	paste(another, Point.zero());
     }
 
     static public Sprite loadSpriteFromFile(String path) throws FileNotFoundException, IOException
@@ -26,19 +26,17 @@ public class Sprite
     
     public Point getSize()
     {
-        return dimensions.getSize();
+        Point tmpSize = new Point(size);
+        return tmpSize;
     }
-    
-    public Point getPosition()
-    {
-    	return dimensions.getPosition();
-    }
-    
+        
     public Pixel getPixel(Point index)
     {
-    	if(dimensions.contains(index))
+    	Square area = new Square(Point.zero(), size);
+    	if(area.contains(index))
     	{
-    		return pixels[index.getY()][index.getX()];
+    		Pixel tmpPixel = new Pixel(pixels[index.getY()][index.getX()]);
+    		return tmpPixel;
     	}
     	else
     	{
@@ -48,7 +46,8 @@ public class Sprite
     
     public void setPixel(Point index, Pixel newPixel)
     {
-    	if(dimensions.contains(index))
+    	Square area = new Square(Point.zero(), size);
+    	if(area.contains(index))
     	{
     		pixels[index.getY()][index.getX()] = newPixel;
     	}
@@ -59,9 +58,9 @@ public class Sprite
      */
     public void clearSpriteToPixel(Pixel pix)
     {
-    	for(int y = 0; y < dimensions.getSize().getY(); y++)
+    	for(int y = 0; y < size.getY(); y++)
     	{
-    		for(int x = 0; x < dimensions.getSize().getX(); x++)
+    		for(int x = 0; x < size.getX(); x++)
     		{
     			Point pos = new Point(x,y);
 				setPixel(pos, pix);
@@ -72,18 +71,18 @@ public class Sprite
     /*
      * Pastes other sprite onto me. 
      */
-    public void paste(Sprite otherSprite)
+    public void paste(Sprite otherSprite, Point offset)
     {
-    	for(int y = 0; y < otherSprite.dimensions.getSize().getY(); y++)
+    	int maxY = otherSprite.size.getY();
+    	int maxX = otherSprite.size.getX();
+    	for(int y = 0; y < maxY; y++)
     	{
-    		for(int x = 0; x < otherSprite.dimensions.getSize().getX(); x++)
+    		for(int x = 0; x < maxX; x++)
     		{
-    			Point pos = new Point(x,y);
-				Pixel otherPixel = otherSprite.getPixel(pos);
-				if(otherPixel != null)
-				{
-					setPixel(pos, otherPixel);
-				}
+    			Point posInOther = new Point(x,y);
+				Pixel otherPixel = otherSprite.getPixel(posInOther);
+				posInOther.add(offset); // now pos in me
+				setPixel(posInOther, otherPixel);
     		}
     	}
     }

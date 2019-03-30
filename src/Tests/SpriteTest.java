@@ -8,7 +8,6 @@ import java.io.IOException;
 import Crawl.Pixel;
 import Crawl.Point;
 import Crawl.Sprite;
-import Crawl.Square;
 
 import org.junit.jupiter.api.Test;
 
@@ -39,8 +38,8 @@ class SpriteTest {
 	{
 		writeDataToFile("testfile.txt", "10 20 30\n 40 50 60");
 		Sprite srcSprite = Sprite.loadSpriteFromFile("testfile.txt");
-		Sprite targetSprite = new Sprite(new Square(new Point(0,0), new Point(3,2)));
-		targetSprite.paste(srcSprite);
+		Sprite targetSprite = new Sprite(new Point(3,2));
+		targetSprite.paste(srcSprite, Point.zero());
 		int[][] expected = {{10, 20, 30}, {40, 50, 60}};
 		SpriteShouldHavePixelvals(targetSprite, expected);
 	}
@@ -50,8 +49,8 @@ class SpriteTest {
 	{
 		writeDataToFile("testfile.txt", "10 20 30\n 40 50 60");
 		Sprite srcSprite = Sprite.loadSpriteFromFile("testfile.txt");
-		Sprite targetSprite = new Sprite(new Square(new Point(0,0), new Point(2,1)));
-		targetSprite.paste(srcSprite);
+		Sprite targetSprite = new Sprite(new Point(2,1));
+		targetSprite.paste(srcSprite, Point.zero());
 		int[][] expected = {{10, 20}};
 		SpriteShouldHavePixelvals(targetSprite, expected);
 	}
@@ -61,8 +60,8 @@ class SpriteTest {
 	{
 		writeDataToFile("testfile.txt", "10 20 30\n 40 50 60");
 		Sprite srcSprite = Sprite.loadSpriteFromFile("testfile.txt");
-		Sprite targetSprite = new Sprite(new Square(new Point(0,0), new Point(4,3)));
-		targetSprite.paste(srcSprite);
+		Sprite targetSprite = new Sprite(new Point(4,3));
+		targetSprite.paste(srcSprite, Point.zero());
 		int[][] expected = {{10, 20, 30, 0}, {40, 50, 60, 0}, {0, 0, 0, 0}};
 		SpriteShouldHavePixelvals(targetSprite, expected);
 	}

@@ -22,7 +22,7 @@ public class SpriteLoader {
     {
     	Point spriteSize = getFilesSpriteDimensions(readChars);
     	
-    	Sprite newSprite = new Sprite(new Square(new Point(0,0), spriteSize));
+    	Sprite newSprite = new Sprite(spriteSize);
     	String[] rows = readChars.split("\n");
     	for(int y = 0; y < rows.length; y++)
     	{

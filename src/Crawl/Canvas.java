@@ -6,30 +6,73 @@ import java.io.OutputStreamWriter;
 
 final public class Canvas
 {
+
+
+	/* ---- Data ---- */
     static Sprite mainScreen;
     static Sprite previousMainScreen;
     static BufferedWriter printer;
-    private Canvas(){}
+    
+
+    /* ---- Public ---- */
 
     public static void initialize() throws IOException
     {
 
-        Point size = getScreenSize();
-        Square screenBox = new Square(new Point(0,0), size);
-        mainScreen = new Sprite(screenBox);
+        Point size = getInternalScreenSize();
+        mainScreen = new Sprite(size);
         printer = new BufferedWriter(new OutputStreamWriter(System.out));
         setCursorPosition(0,0);
         clearScreen();
     }
 
-    private static Point getScreenSize()
+    /*
+     * Returns a copy of the currently planned image to render. 
+     */
+    public static Sprite GetPlannedImage()
+    {
+    	return new Sprite(mainScreen);
+    }
+	
+    public static void teardown()    {}
+    
+    /*
+     * Will paint the sprite to be printed in the 
+     * next rendering.
+     */
+    public static void paintSprite(Sprite texture, Point position)
+    {
+    	mainScreen.paste(texture, position);
+    }
+    
+    /*
+     * "Renders" or prints the image onto the terminal.
+     */
+    public static void render() throws IOException
+    {
+    	if(previousMainScreen == null)
+    	{
+    		fullPrint();
+    	}
+    	else
+    	{
+    		selectivePrint();
+    	}
+    	previousMainScreen = new Sprite(mainScreen);
+    }
+    
+    public static Point getScreenSize()
+    {
+    	return getInternalScreenSize();
+    }
+    
+    /* ---- Private ---- */
+    
+    private Canvas(){}
+
+    private static Point getInternalScreenSize()
     {
         return new Point(110,59);  //Hard coded for full-sized window.
-    }
-
-    public static void teardown()
-    {
-    	
     }
 
     /*
@@ -50,31 +93,6 @@ final public class Canvas
     	printer.write("\033[2J");
     }
     
-    /*
-     * Will paint the sprite to be printed in the 
-     * next rendering.
-     */
-    public static void paintSprite(Sprite texture)
-    {
-    	mainScreen.paste(texture);
-    }
-
-    /*
-     * "Renders" or prints the image onto the terminal.
-     */
-    public static void render() throws IOException
-    {
-    	if(previousMainScreen == null)
-    	{
-    		fullPrint();
-    	}
-    	else
-    	{
-    		selectivePrint();
-    	}
-    	previousMainScreen = new Sprite(mainScreen);
-    }
-
     private static void selectivePrint() throws IOException
     {
     	for(int y = 0; y < mainScreen.getSize().getY(); y++)

@@ -9,7 +9,12 @@ public class Pixel
         color = _color;
     }
     
-    /*
+    public Pixel(Pixel otherPixel) 
+    {
+    	color = otherPixel.color;
+    }
+
+	/*
      * Returns how many cells wide each pixel is on the terminal.
      */
     public static int pixelWidth()
