@@ -1,4 +1,4 @@
-package Crawl;
+package graphics;
 
 public class Pixel
 {

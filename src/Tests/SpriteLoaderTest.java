@@ -7,10 +7,10 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import Crawl.Pixel;
-import Crawl.Point;
-import Crawl.Sprite;
-import Crawl.SpriteLoader;
+import base.Point;
+import graphics.Pixel;
+import graphics.Sprite;
+import graphics.SpriteLoader;
 
 class SpriteLoaderTest {
 	

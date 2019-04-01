@@ -1,8 +1,10 @@
-package Crawl;
+package graphics;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+
+import base.Helpers;
+import base.Point;
 
 public class SpriteLoader {
  
@@ -13,7 +15,7 @@ public class SpriteLoader {
     static public Sprite loadSpriteFromFile(String path) throws FileNotFoundException, IOException
     {
     	StringBuilder dataDump = new StringBuilder();
-    	readFileToString(path, dataDump);
+    	Helpers.readFileToString(path, dataDump);
     	Sprite newSprite = extractPixelsFromString(dataDump.toString());
     	return newSprite;
     }
@@ -44,15 +46,4 @@ public class SpriteLoader {
     	return new Point(pixelsvals.length, lines.length);
     }
     
-
-    private static void readFileToString(String path, StringBuilder output) throws FileNotFoundException, IOException {
-    	FileReader fileReader = new FileReader(path);
-		int readByte = fileReader.read();
-		while(readByte != -1) {
-			output.append((char)readByte);
-			readByte = fileReader.read();
-		}
-		fileReader.close();
-    }
-
 }

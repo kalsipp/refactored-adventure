@@ -1,4 +1,4 @@
-package Crawl;
+package base;
 
 public class Square {
 	Point position;

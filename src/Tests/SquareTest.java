@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import Crawl.Point;
-import Crawl.Square;
+import base.Point;
+import base.Square;
 
 class SquareTest {
 

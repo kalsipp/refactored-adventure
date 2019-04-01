@@ -5,11 +5,12 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
-import Crawl.Canvas;
-import Crawl.Pixel;
-import Crawl.Point;
-import Crawl.Sprite;
-import Crawl.Square;
+
+import base.Point;
+import base.Square;
+import graphics.Canvas;
+import graphics.Pixel;
+import graphics.Sprite;
 
 class CanvasTest {
 
@@ -108,6 +109,27 @@ class CanvasTest {
 			Square area = new Square(printPos, printSize);
 			spriteShouldContainPixels(plannedImg, pixelVal, area);
 		}
-
 	}
+	
+	@Test
+	void paintSpriteDepthTest() throws IOException
+	{
+		{ // If I print picture A then B, B should overwrite A
+			Canvas.initialize();
+			Point printSize = new Point(10,10);
+			Point printPos = new Point(1,1);			
+			int pixelVal1 = 10;
+			int pixelVal2 = 20;
+			Sprite img = createSpriteWithVal(printSize, pixelVal1);
+			Sprite img2 = createSpriteWithVal(printSize, pixelVal2);
+			
+			Canvas.paintSprite(img, printPos);
+			Canvas.paintSprite(img2, printPos);
+			
+			Sprite plannedImg = Canvas.GetPlannedImage();
+			Square area = new Square(printPos, printSize);
+			spriteShouldContainPixels(plannedImg, pixelVal2, area);
+		}
+	}
+
 }

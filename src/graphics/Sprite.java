@@ -1,6 +1,9 @@
-package Crawl;
+package graphics;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import base.Point;
+import base.Square;
 public class Sprite
 {
     Pixel[][] pixels;

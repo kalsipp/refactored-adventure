@@ -1,8 +1,10 @@
-package Crawl;
+package graphics;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+
+import base.Point;
 
 final public class Canvas
 {

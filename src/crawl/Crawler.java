@@ -1,8 +1,12 @@
-package Crawl;
+package crawl;
 
 import java.io.Console;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import base.Point;
+import graphics.Canvas;
+import graphics.Sprite;
 
 public class Crawler 
 {
