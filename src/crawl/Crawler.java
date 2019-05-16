@@ -4,34 +4,65 @@ import java.io.Console;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import base.Helpers;
+import base.InputHandler;
 import base.Point;
+import base.Vector2;
+import base.Vector3;
+import graphics.Camera;
 import graphics.Canvas;
 import graphics.Sprite;
+import mapping.Map;
+import mapping.MapLoader;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class Crawler 
 {
     public static void main( String[] args ) throws FileNotFoundException, IOException
     {
         Canvas.initialize();
-        int x = 0;
         Console console = System.console();
-
-        for(int i = 0; i < 10; i++)
-        {
-        	console.readLine();
-
-        	if(x%2 == 0)
+        final String baseFilename = "testfile.yeoldemappe";
+        String baseMap = 
+        		  "########\n"
+        		+ "#......#\n"
+        		+ "#......#\n"
+        		+ "#...#..#\n"
+        		+ "########";
+        Helpers.writeDataToFile(baseFilename, baseMap);
+		Map activeMap = MapLoader.loadMapFromFile(baseFilename);
+		Camera cam = new Camera();
+		cam.setCameraPos(new Vector2(2.5,2.5));
+		InputHandler.initialize();
+		while(true)
+		{
+        	String input = console.readLine();
+        	String[] coords = input.split(",");
+        	
+        	if (coords[0].contentEquals("q"))
         	{
-        		Sprite exampleSprite = Sprite.loadSpriteFromFile("C:/Users/marti/eclipse-workspace/CrawlEclipse/Media/left.img");
-        		Canvas.paintSprite(exampleSprite, Point.zero());
+        		cam.rotate(-0.3);
         	}
-        	else
+        	else if (coords[0].contentEquals("e"))
         	{
-        		Sprite exampleSprite = Sprite.loadSpriteFromFile("C:/Users/marti/eclipse-workspace/CrawlEclipse/Media/path6.img");
-        		Canvas.paintSprite(exampleSprite, Point.zero());
+        		cam.rotate(0.3);
         	}
-        	x++;
+        	else if(coords[0].contentEquals("w"))
+        	{
+        		cam.move(0.3);
+        	}
+        	else if(coords[0].contentEquals("s"))
+        	{
+        		cam.move(-0.3);
+        	}
+    		cam.renderScreen(activeMap);
 	    	Canvas.render();
-        }
+		}
+//		for(int i = 0; i < 20; i++)
+//        {
+//        	console.readLine();
+//        	cam.setCameraDirection(new Vector3(i, 1, 0));
+//        }
     }
 }	

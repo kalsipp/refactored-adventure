@@ -6,7 +6,7 @@ public class Map
 {
 	Tile[][] tiles;
 	Point size;
-	
+
 	public Map(Point _size)
 	{
 		size = _size;
@@ -22,30 +22,50 @@ public class Map
 	
 	public void SetTile(Point pos, Tile newTile)
 	{
-		int y = pos.getY();
-		int x = pos.getX();
-		if(tiles.length > y)
+		if(tilesContainPos(pos))
 		{
-			if(tiles[y].length > x)
-			{
-				tiles[y][x] = newTile;
-			}
+			tiles[pos.getY()][pos.getX()] = newTile;
+		}
+	}
+	
+	public boolean IsTilePassableAt(Point pos)
+	{
+		Tile tile = GetTile(pos);
+		if(tile != null)
+		{
+			return tile.isPassable();
+		}
+		else
+		{	
+			return false;
 		}
 	}
 	
 	public Tile GetTile(Point pos)
 	{
-		int y = pos.getY();
-		int x = pos.getX();
-		if(tiles.length > y)
+		if(tilesContainPos(pos))
 		{
-			if(tiles[y].length > x)
-			{
-				return new Tile(tiles[y][x]);
-			}
+			return tiles[pos.getY()][pos.getX()];
+		}
+		else
+		{
+			return null;
 		}
 		
-		return null;
 	}
+		
 	
+	boolean tilesContainPos(Point pos)
+	{
+		final int y = pos.getY();
+		final int x = pos.getX();
+		if(tiles.length > y && y >= 0)
+		{
+			if(tiles[y].length > x && x >= 0)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 }

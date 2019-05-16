@@ -1,4 +1,4 @@
-package Tests;
+package tests;
 
 import static org.junit.Assert.assertTrue;
 
@@ -44,7 +44,6 @@ class CanvasTest {
 			for(int x = minTotalX; x < maxTotalX; x++)
 			{
 				Pixel pix = sprite.getPixel(new Point(x,y));
-				int pixVal = pix.getColor();
 				if(area.contains(new Point(x,y)))
 				{
 					assertTrue(pix.getColor() == val);

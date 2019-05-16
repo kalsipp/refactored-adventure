@@ -1,0 +1,5 @@
+{
+	"position":[0,1],
+	"type":"door",
+	"target":"next_floor"
+}

@@ -14,7 +14,6 @@ final public class Canvas
     static Sprite mainScreen;
     static Sprite previousMainScreen;
     static BufferedWriter printer;
-    
 
     /* ---- Public ---- */
 
@@ -61,6 +60,7 @@ final public class Canvas
     		selectivePrint();
     	}
     	previousMainScreen = new Sprite(mainScreen);
+    	mainScreen.clearSpriteToPixel(new Pixel(0));
     }
     
     public static Point getScreenSize()

@@ -2,6 +2,7 @@ package base;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class Helpers 
@@ -28,4 +29,13 @@ public class Helpers
 		}
 		fileReader.close();
     }
+    
+	public static void writeDataToFile(String filename, String data) throws IOException
+	{
+    	try(FileWriter fileWriter = new FileWriter(filename))
+    	{
+    		fileWriter.write(data);
+    	}
+	}
+
 }

@@ -1,26 +1,48 @@
 package mapping;
+import java.util.Random;
 
 import base.Point;
+import graphics.Pixel;
+import graphics.Sprite;
 
 public class Tile 
 {
-	boolean isWall;
+	protected boolean isPassable;
+	protected Sprite sprite;
+	final private int defaultColor = 20; // Should be a recognizable color
+	final protected Pixel defaultPixel = new Pixel(defaultColor);
 	public Tile()
 	{
-		isWall = true;
+		isPassable = false;
 	}
 	
 	public Tile(Tile tile) 
 	{
-		isWall = tile.isWall;
+		isPassable = tile.isPassable;
 	}
 
-	public void open() 
+	final public boolean isPassable()
 	{
-		isWall =  true;
+		return isPassable;
 	}
-	public void close()
+	
+	final public void open() 
 	{
-		isWall = false;
+		isPassable = true;
+	}
+	
+	final public void close()
+	{
+		isPassable = false;
+	}
+	
+	public Point getSpriteSize()
+	{
+		return new Point(1,1);
+	}
+	
+	public Pixel getPixel(Point spritePosition)
+	{
+		return defaultPixel; 
 	}
 }
