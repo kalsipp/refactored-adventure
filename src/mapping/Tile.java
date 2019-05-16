@@ -1,5 +1,4 @@
 package mapping;
-import java.util.Random;
 
 import base.Point;
 import graphics.Pixel;
@@ -7,10 +6,10 @@ import graphics.Sprite;
 
 public class Tile 
 {
-	protected boolean isPassable;
-	protected Sprite sprite;
+	boolean isPassable;
+	Sprite sprite;
 	final private int defaultColor = 20; // Should be a recognizable color
-	final protected Pixel defaultPixel = new Pixel(defaultColor);
+	final Pixel defaultPixel = new Pixel(defaultColor);
 	public Tile()
 	{
 		isPassable = false;

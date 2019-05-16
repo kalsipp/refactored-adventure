@@ -2,7 +2,7 @@ package graphics;
 
 public class Pixel
 {
-    int color;
+    private final int color;
 
     public Pixel(int _color)
     {
@@ -17,6 +17,7 @@ public class Pixel
 	/*
      * Returns how many cells wide each pixel is on the terminal.
      */
+    @SuppressWarnings("SameReturnValue")
     public static int pixelWidth()
     {
     	return 2;

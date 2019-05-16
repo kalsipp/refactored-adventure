@@ -1,15 +1,10 @@
 package base;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.Arrays;
-
 import javax.swing.JFrame;
 
 public final class InputHandler 
 {
-	static KeySniffer myListener;
+	private static KeySniffer myListener;
 	public static void initialize()
 	{
 		myListener = new KeySniffer();

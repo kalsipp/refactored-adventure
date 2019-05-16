@@ -4,12 +4,10 @@ import base.Point;
 
 public class Map 
 {
-	Tile[][] tiles;
-	Point size;
+	private final Tile[][] tiles;
 
-	public Map(Point _size)
+	public Map(Point size)
 	{
-		size = _size;
 		tiles = new Tile[size.getY()][size.getX()];
 		for(int y = 0; y < size.getY(); y++)
 		{
@@ -55,16 +53,13 @@ public class Map
 	}
 		
 	
-	boolean tilesContainPos(Point pos)
+	private boolean tilesContainPos(Point pos)
 	{
 		final int y = pos.getY();
 		final int x = pos.getX();
 		if(tiles.length > y && y >= 0)
 		{
-			if(tiles[y].length > x && x >= 0)
-			{
-				return true;
-			}
+			return tiles[y].length > x && x >= 0;
 		}
 		return false;
 	}

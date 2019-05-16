@@ -9,7 +9,7 @@ import base.Point;
 import graphics.Pixel;
 import graphics.Sprite;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SpriteTest {
 	void writeDataToFile(String filename, String data) throws IOException
@@ -27,8 +27,8 @@ class SpriteTest {
 			for(int x = 0; x < values[0].length; x++)
 			{
 				Pixel pix = sprite.getPixel(new Point(x,y));
-				assertTrue(pix != null);
-				assertTrue(pix.getColor() == values[y][x]);
+				assertNotNull(pix);
+				assertEquals(pix.getColor(), values[y][x]);
 			}
 		}
 	}

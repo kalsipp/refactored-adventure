@@ -1,7 +1,5 @@
 package tests;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -11,6 +9,8 @@ import base.Point;
 import graphics.Pixel;
 import graphics.Sprite;
 import graphics.SpriteLoader;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class SpriteLoaderTest {
 	
@@ -29,8 +29,8 @@ class SpriteLoaderTest {
 			for(int x = 0; x < values[0].length; x++)
 			{
 				Pixel pix = sprite.getPixel(new Point(x,y));
-				assertTrue(pix != null);
-				assertTrue(pix.getColor() == values[y][x]);
+				assertNotNull(pix);
+				assertEquals(pix.getColor(), values[y][x]);
 			}
 		}
 	}

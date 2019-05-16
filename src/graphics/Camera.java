@@ -12,9 +12,9 @@ import mapping.Tile;
 public class Camera 
 {
 
-	Vector2 cameraPosition;
-	Vector2 cameraDirection;
-	Vector2 cameraPlane = new Vector2(0, 1); // Always perpendicular to cameraDir
+	private Vector2 cameraPosition;
+	private Vector2 cameraDirection;
+	private Vector2 cameraPlane = new Vector2(0, 1); // Always perpendicular to cameraDir
 	private final static Logger LOGGER = Logger.getLogger(Camera.class.getName());
 	final boolean useTextures = true;
 	public Camera()
@@ -107,7 +107,7 @@ public class Camera
 			int mapY = playerMapPosY;
 			int side = 0; //was a NS or a EW wall hit?
 			//perform DDA
-			while (hit == false)
+			while (!hit)
 			{
 				//jump to next map square, OR in x-direction, OR in y-direction
 				if (sideDistX < sideDistY)
@@ -123,7 +123,7 @@ public class Camera
 					side = 1;
 				}
 				//Check if ray has hit a wall
-				if(currentMap.IsTilePassableAt(new Point(mapX, mapY)) == false)
+				if(!currentMap.IsTilePassableAt(new Point(mapX, mapY)))
 				{
 					hit = true;
 				}
@@ -162,9 +162,11 @@ public class Camera
 	
 	void renderHitTextureLess(
 			final int drawStart, 
-			final int drawEnd, 
-			final int xScreenPos, 
-			final Tile renderTile, 
+	private void renderHitTextureLess(
+			final int drawStart,
+			final int drawEnd,
+			final int xScreenPos,
+			final Tile renderTile,
 			final int side)
 	{
 		if(renderTile == null)

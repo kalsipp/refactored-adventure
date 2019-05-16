@@ -10,11 +10,11 @@ import graphics.Canvas;
 import graphics.Pixel;
 import graphics.Sprite;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CanvasTest {
 
-	int canvasDefaultVal = 0;
+	private final int canvasDefaultVal = 0;
 	void spriteShouldOnlyHaveValue(Sprite sprite, int val)
 	{
 		spriteShouldContainPixels(sprite, val, new Square(new Point(0,0), sprite.getSize()));
@@ -46,11 +46,11 @@ class CanvasTest {
 				Pixel pix = sprite.getPixel(new Point(x,y));
 				if(area.contains(new Point(x,y)))
 				{
-					assertTrue(pix.getColor() == val);
+					assertEquals(pix.getColor(), val);
 				}
 				else
 				{
-					assertTrue(pix.getColor() == canvasDefaultVal);
+					assertEquals(pix.getColor(), canvasDefaultVal);
 				}
 			}
 		}

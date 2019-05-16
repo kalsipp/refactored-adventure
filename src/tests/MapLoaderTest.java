@@ -18,8 +18,8 @@ import mapping.Tile;
 class MapLoaderTest 
 {
 	
-	final String baseFilename = "testfile.yeoldemappe";
-	final String overrideFilename = "testfile.json";
+	private final String baseFilename = "testfile.yeoldemappe";
+	private final String overrideFilename = "testfile.json";
 	void writeDataToFile(String filename, String data) throws IOException
 	{
     	try(FileWriter fileWriter = new FileWriter(filename))
@@ -60,7 +60,7 @@ class MapLoaderTest
 					tileShouldBeOpen(map.GetTile(new Point(x,y)));
 					break;
 				default:
-					assertTrue(false);
+					fail();
 					break;
 				}
 			}
@@ -119,7 +119,7 @@ class MapLoaderTest
 			Map newMap = MapLoader.loadMapFromFile(baseFilename);
 			baseMapShouldBe(baseMap, newMap);
 			Door door = (Door)newMap.GetTile(new Point(0,1));
-			assertTrue(door.getTargetFloor().equals("next_floor"));
+			assertEquals("next_floor", door.getTargetFloor());
 		}
 	}
 

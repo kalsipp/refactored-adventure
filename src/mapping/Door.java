@@ -2,7 +2,7 @@ package mapping;
 
 public final class Door extends Tile 
 {
-	String targetFloor;
+	private final String targetFloor;
 	public Door(String _targetFloor)
 	{
 		targetFloor = _targetFloor;

@@ -1,23 +1,17 @@
 package crawl;
 
 import java.io.Console;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import base.Helpers;
 import base.InputHandler;
-import base.Point;
 import base.Vector2;
-import base.Vector3;
 import graphics.Camera;
 import graphics.Canvas;
-import graphics.Sprite;
 import mapping.Map;
 import mapping.MapLoader;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
-public class Crawler 
+class Crawler
 {
     public static void main( String[] args ) throws IOException
     {

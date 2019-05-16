@@ -2,10 +2,10 @@ package base;
 
 import mapping.Map;
 
-public class Scene 
+class Scene
 {
 	
-	Map currentMap;
+	private Map currentMap;
 	public void setActiveMap(Map map)
 	{
 		currentMap = map;

@@ -2,11 +2,11 @@ package base;
 
 public class Vector3 
 {
-	double x;
-	double y;
-	double z;
+	private double x;
+	private double y;
+	private double z;
 	
-	public Vector3(double _x, double _y, double _z)
+	private Vector3(double _x, double _y, double _z)
 	{
 		x = _x;
 		y = _y;

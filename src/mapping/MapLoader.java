@@ -11,9 +11,9 @@ import base.Point;
 
 public class MapLoader 
 {
-	final static String basemapEnding = "yeoldemappe";
-	final static String overrideEnding = "json";
-	static public Map loadMapFromFile(String path) throws FileNotFoundException, IOException 
+	private final static String basemapEnding = "yeoldemappe";
+	private final static String overrideEnding = "json";
+	static public Map loadMapFromFile(String path) throws IOException
 	{
 		StringBuilder basePath = new StringBuilder();
 		StringBuilder overridePath = new StringBuilder();
@@ -54,7 +54,7 @@ public class MapLoader
 	private static Tile parseJsonTile(JSONObject tileJson) 
 	{
 		String type = tileJson.getString("type");
-		Tile newTile = null;
+		Tile newTile;
 		switch(type)
 		{
 		case "door":

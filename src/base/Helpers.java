@@ -1,6 +1,5 @@
 package base;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,7 +15,7 @@ public class Helpers
 		return one > two ? two : one;
 	}
 	
-    public static void readFileToString(String path, StringBuilder output) throws FileNotFoundException, IOException {
+    public static void readFileToString(String path, StringBuilder output) throws IOException {
     	if(output == null)
     	{
     		output = new StringBuilder();

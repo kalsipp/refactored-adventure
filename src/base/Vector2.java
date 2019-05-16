@@ -2,8 +2,8 @@ package base;
 
 public class Vector2 
 {
-	double x;
-	double y;
+	private double x;
+	private double y;
 	
 	public Vector2(double _x, double _y)
 	{

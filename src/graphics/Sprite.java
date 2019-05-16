@@ -1,13 +1,12 @@
 package graphics;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import base.Point;
 import base.Square;
 public class Sprite
 {
-    Pixel[][] pixels;
-    Point size;
+    private final Pixel[][] pixels;
+    private final Point size;
     public Sprite(Point _size)
     {
     	size = _size;
@@ -22,15 +21,14 @@ public class Sprite
     	paste(another, Point.zero());
     }
 
-    static public Sprite loadSpriteFromFile(String path) throws FileNotFoundException, IOException
+    static public Sprite loadSpriteFromFile(String path) throws IOException
     {
     	return SpriteLoader.loadSpriteFromFile(path);
     }
     
     public Point getSize()
     {
-        Point tmpSize = new Point(size);
-        return tmpSize;
+		return new Point(size);
     }
         
     public Pixel getPixel(Point index)
@@ -38,8 +36,7 @@ public class Sprite
     	Square area = new Square(Point.zero(), size);
     	if(area.contains(index))
     	{
-    		Pixel tmpPixel = new Pixel(pixels[index.getY()][index.getX()]);
-    		return tmpPixel;
+			return new Pixel(pixels[index.getY()][index.getX()]);
     	}
     	else
     	{

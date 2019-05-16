@@ -1,8 +1,8 @@
 package base;
 
 public class Square {
-	Point position;
-	Point size;
+	private final Point position;
+	private final Point size;
 	public Square(Point _position, Point _size)
 	{
 		position = _position;

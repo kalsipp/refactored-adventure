@@ -11,9 +11,9 @@ final public class Canvas
 
 
 	/* ---- Data ---- */
-    static Sprite mainScreen;
-    static Sprite previousMainScreen;
-    static BufferedWriter printer;
+    private static Sprite mainScreen;
+    private static Sprite previousMainScreen;
+    private static BufferedWriter printer;
 
     /* ---- Public ---- */
 
@@ -81,7 +81,7 @@ final public class Canvas
      * Will print an escape command to move the terminal cursor
      * to the requested cell. 
      */
-    static void setCursorPosition(int px, int py) throws IOException
+    private static void setCursorPosition(int px, int py) throws IOException
     {
         px++; //escape is 1 base
         py++;
@@ -91,7 +91,7 @@ final public class Canvas
     /*
      * Will print an escape command to clear the screen.
      */
-    static void clearScreen() throws IOException{
+    private static void clearScreen() throws IOException{
     	printer.write("\033[2J");
     }
     
@@ -120,12 +120,12 @@ final public class Canvas
     	setCursorPosition(0,0);
     	for(int y = 0; y < mainScreen.getSize().getY(); y++)
     	{
-    		String nextLine = "";
+    		StringBuilder nextLine = new StringBuilder();
         	for(int x = 0; x < mainScreen.getSize().getX(); x++)
         	{
         		Point pos = new Point(x,y);
         		Pixel nextPixel = mainScreen.getPixel(pos);
-        		nextLine += nextPixel.getString();
+        		nextLine.append(nextPixel.getString());
         	}
         	printer.write(nextLine+"\n");
     	}

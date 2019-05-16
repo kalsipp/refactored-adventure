@@ -4,11 +4,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Arrays;
 
-public class KeySniffer implements KeyListener
+class KeySniffer implements KeyListener
 {
-	static boolean[] keyStatuses;
-	static boolean[] keyStatusesNoClear;
-	static final int bufferSize = 1000;
+	private static boolean[] keyStatuses;
+	private static boolean[] keyStatusesNoClear;
+	private static final int bufferSize = 1000;
 	
 	public KeySniffer()
 	{
