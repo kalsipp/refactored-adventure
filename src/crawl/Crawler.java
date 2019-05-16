@@ -19,7 +19,7 @@ import java.awt.event.KeyListener;
 
 public class Crawler 
 {
-    public static void main( String[] args ) throws FileNotFoundException, IOException
+    public static void main( String[] args ) throws IOException
     {
         Canvas.initialize();
         Console console = System.console();

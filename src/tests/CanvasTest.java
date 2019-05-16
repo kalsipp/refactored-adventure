@@ -1,7 +1,5 @@
 package tests;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
@@ -11,6 +9,8 @@ import base.Square;
 import graphics.Canvas;
 import graphics.Pixel;
 import graphics.Sprite;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CanvasTest {
 

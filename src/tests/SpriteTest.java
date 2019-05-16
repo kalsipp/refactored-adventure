@@ -1,7 +1,5 @@
 package tests;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -10,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import base.Point;
 import graphics.Pixel;
 import graphics.Sprite;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SpriteTest {
 	void writeDataToFile(String filename, String data) throws IOException
