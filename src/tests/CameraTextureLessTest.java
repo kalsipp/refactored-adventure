@@ -9,14 +9,16 @@ import org.junit.jupiter.api.Test;
 
 import base.Point;
 import base.Vector2;
-import graphics.Camera;
+import graphics.CameraTextureLess;
 import graphics.Canvas;
+import graphics.Camera;
 import graphics.Pixel;
 import graphics.Sprite;
 import mapping.Map;
 import mapping.MapLoader;
 
-class CameraTest {
+class CameraTextureLessTest
+{
 
 	void writeDataToFile(String filename, String data) throws IOException
 	{

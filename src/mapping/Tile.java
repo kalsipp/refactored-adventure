@@ -1,15 +1,15 @@
 package mapping;
 
 import base.Point;
+import graphics.Canvas;
 import graphics.Pixel;
 import graphics.Sprite;
 
 public class Tile 
 {
 	boolean isPassable;
+	final Point tileSpriteSize = new Point(32,32);
 	Sprite sprite;
-	final private int defaultColor = 20; // Should be a recognizable color
-	final Pixel defaultPixel = new Pixel(defaultColor);
 	public Tile()
 	{
 		isPassable = false;
@@ -18,6 +18,7 @@ public class Tile
 	public Tile(Tile tile) 
 	{
 		isPassable = tile.isPassable;
+		sprite = new Sprite(tile.sprite);
 	}
 
 	final public boolean isPassable()
@@ -35,13 +36,14 @@ public class Tile
 		isPassable = false;
 	}
 	
-	public Point getSpriteSize()
+	final public Sprite getSpriteRef()
 	{
-		return new Point(1,1);
-	}
-	
-	public Pixel getPixel(Point spritePosition)
-	{
-		return defaultPixel; 
+		if (sprite == null)
+		{
+			/* Technically not meant to happen as renderable children will populate sprite */
+			sprite = new Sprite(tileSpriteSize);
+			sprite.clearSpriteToPixel(new Pixel(20));
+		}
+		return sprite;
 	}
 }

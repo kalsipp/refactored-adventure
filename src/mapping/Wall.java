@@ -10,25 +10,5 @@ public class Wall extends Tile
 	{
 		sprite = _sprite;
 	}
-	
-	@Override
-	public Pixel getPixel(Point position)
-	{
-		Pixel pix = sprite.getPixel(position);
-		if(pix != null)
-		{
-			return pix;
-		}
-		else
-		{
-			return defaultPixel;
-		}
-	}
-	
-	@Override
-	public Point getSpriteSize()
-	{
-		return sprite.getSize();
-	}
-	
+
 }

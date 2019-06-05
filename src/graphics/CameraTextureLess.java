@@ -1,22 +1,24 @@
 package graphics;
 
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import base.Point;
 import base.Vector2;
 import mapping.Map;
 import mapping.Tile;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-public class Camera
+public class CameraTextureLess
 {
+
     private final static Logger LOGGER = Logger.getLogger(CameraTextureLess.class.getName());
     final boolean useTextures = true;
     private Vector2 cameraPosition;
     private Vector2 cameraDirection;
     private Vector2 cameraPlane = new Vector2(0, 1); // Always perpendicular to cameraDir
 
-    public Camera()
+    public CameraTextureLess()
     {
         cameraPosition = Vector2.zero();
         cameraDirection = new Vector2(-1, 0);
@@ -153,57 +155,19 @@ public class Camera
                 drawEnd = screenHeight - 1;
             }
 
-            //calculate value of wallX
-            double wallX; //where exactly the wall was hit
-            if (side == 0)
-            {
-                wallX = playerY + perpWallDist * rayDirY;
-            }
-            else
-            {
-                wallX = playerX + perpWallDist * rayDirX;
-            }
-            wallX -= Math.floor((wallX));
+            Tile hitTile = currentMap.GetTile(new Point(mapX, mapY));
 
-            final Tile hitTile = currentMap.GetTile(new Point(mapX, mapY));
-            final Sprite hitSprite = hitTile.getSpriteRef();
-            if(hitSprite == null)
-            {
-                LOGGER.log(Level.WARNING, "Tried to render null sprite");
-            }
-            final Point spriteSize = hitSprite.getSize();
-
-
-            //x coordinate on the texture
-            int textureXPos = (int)(wallX * (double)spriteSize.getX());
-            if(side == 0 && rayDirX > 0)
-            {
-                textureXPos = spriteSize.getX() - textureXPos - 1;
-            }
-            if(side == 1 && rayDirY < 0)
-            {
-                textureXPos = spriteSize.getX() - textureXPos - 1;
-            }
-
-            Sprite renderPalette = new Sprite(new Point(1, drawEnd-drawStart));
-
-            for(int y = drawStart; y < drawEnd; y++)
-            {
-                final int d  = y*256-screenHeight*128+lineHeight*128;
-                final int textureYPos = ((d * spriteSize.getY()) / lineHeight) / 256;
-                final Pixel hitPix = hitSprite.getPixel(new Point(textureYPos, textureXPos));
-                if(hitPix != null)
-                {
-                    renderPalette.setPixel(new Point(0, y - drawStart), hitPix);
-                }
-                else
-                {
-                    LOGGER.log(Level.WARNING, "Tried to render null pixel");
-                    LOGGER.log(Level.WARNING, "Tried to render null pixel");
-                }
-            }
-            Canvas.paintSprite(renderPalette, new Point(sliceX, 0));
+            renderHitTextureLess(drawStart, drawEnd, sliceX, hitTile, side);
         }
     }
 
+    private void renderHitTextureLess(
+            final int drawStart,
+            final int drawEnd,
+            final int xScreenPos,
+            final Tile renderTile,
+            final int side)
+    {
+
+    }
 }

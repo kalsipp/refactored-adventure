@@ -7,6 +7,7 @@ import base.Helpers;
 import base.InputHandler;
 import base.Vector2;
 import graphics.Camera;
+import graphics.CameraTextureLess;
 import graphics.Canvas;
 import mapping.Map;
 import mapping.MapLoader;
