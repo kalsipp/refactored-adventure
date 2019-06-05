@@ -66,7 +66,7 @@ final public class Canvas {
     }
 
     private static Point getInternalScreenSize() {
-        return new Point(110, 59);  //Hard coded for full-sized window.
+        return new Point(135, 70);  //Hard coded for full-sized window.
     }
 
     /*
