@@ -143,6 +143,7 @@ public class Camera
             if(hitSprite == null)
             {
                 LOGGER.log(Level.WARNING, "Tried to render null sprite");
+                continue;
             }
             final Point spriteSize = hitSprite.getSize();
             int textureXPos = getTextureXPos(playerX, playerY, rayDirX, rayDirY, side, perpWallDist, spriteSize);
@@ -158,7 +159,7 @@ public class Camera
 
                     if(side == 0)
                     {
-                        hitPix = new Pixel(hitPix.getColor() + 1);
+                        hitPix = new Pixel(hitPix.getColor() + 1); /* Mess up the color slightly to cause a contrast */
                     }
                     renderPalette.setPixel(new Point(0, cameraPosY - drawStart), hitPix);
                 }
