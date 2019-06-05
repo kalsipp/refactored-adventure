@@ -1,18 +1,17 @@
 package crawl;
 
-import java.io.BufferedReader;
 import java.io.Console;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import base.Helpers;
-import base.InputHandler;
+import base.Point;
 import base.Vector2;
 import graphics.Camera;
-import graphics.CameraTextureLess;
 import graphics.Canvas;
 import mapping.Map;
 import mapping.MapLoader;
+
+import javax.swing.*;
 
 class Crawler
 {
@@ -33,37 +32,60 @@ class Crawler
 		Map activeMap = MapLoader.loadMapFromFile(baseFilename);
 		Camera cam = new Camera();
 		cam.setCameraPos(new Vector2(2.5,2.5));
-		InputHandler.initialize();
+		JFrame frame = new JFrame("Fugg");
+		frame.setVisible(true);
+		frame.setSize(400, 400);
+		KeySniffer keyboard = new KeySniffer();
+		frame.addKeyListener(keyboard);
+
 		while(true)
 		{
-			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-			String input = reader.readLine();
-			String[] coords = input.split(",");
+			if(keyboard.newKeyPressed())
+			{
+				move(keyboard.getKeyPressed(), cam, activeMap);
+				cam.renderScreen(activeMap);
+				Canvas.render();
+			}
 
-        	if (coords[0].contentEquals("q"))
-        	{
-        		cam.rotate(-0.3);
-        	}
-        	else if (coords[0].contentEquals("e"))
-        	{
-        		cam.rotate(0.3);
-        	}
-        	else if(coords[0].contentEquals("w"))
-        	{
-        		cam.move(0.3);
-        	}
-        	else if(coords[0].contentEquals("s"))
-        	{
-        		cam.move(-0.3);
-        	}
-
-			cam.renderScreen(activeMap);
-	    	Canvas.render();
 		}
-//		for(int i = 0; i < 20; i++)
-//        {
-//        	console.readLine();
-//        	cam.setCameraDirection(new Vector3(i, 1, 0));
-//        }
     }
+
+	private static void move(final char keyPressed, Camera cam, final Map map)
+	{
+
+
+
+		int plannedMovement = 0;
+		if(keyPressed == 'w')
+		{
+			plannedMovement = 1;
+		}
+		else if(keyPressed == 's')
+		{
+			plannedMovement = -1;
+		}
+		else if (keyPressed == 'q')
+		{
+			cam.rotate(-90);
+		}
+		else if(keyPressed == 'e')
+		{
+			cam.rotate(90);
+		}
+
+		/* Only move if the tile is free */
+		if(plannedMovement != 0)
+		{
+			Vector2 playerPos = cam.getCameraPos();
+			Vector2 playerDir = cam.getCameraDir();
+
+			playerDir.mult(plannedMovement);
+			playerPos.add(playerDir);
+			playerPos.add(new Vector2(-0.5, -0.5));
+			if(map.IsTilePassableAt(new Point(playerPos)))
+			{
+				cam.moveForward(plannedMovement);
+			}
+		}
+	}
 }	

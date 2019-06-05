@@ -49,9 +49,11 @@ public class Vector2
 	/*
 	 * rotate around the X-axis
 	 * X axis defined as pointing up
+	 * - angle is in degrees.
 	 * */
 	public void rotate(double angle)
 	{
+		angle = Math.toRadians(angle);
 		final double oldX = x;
 		x = x*Math.cos(angle) + y*Math.sin(angle);
 		y = y*Math.cos(angle) - oldX*Math.sin(angle);

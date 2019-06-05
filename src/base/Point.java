@@ -9,7 +9,13 @@ public class Point
         x = _x;
         y = _y;
     }
-    
+
+    public Point(Vector2 cameraPosition)
+    {
+        x = (int)Math.round(cameraPosition.getX());
+        y = (int)Math.round(cameraPosition.getY());
+    }
+
     public static Point zero()
     {
     	return new Point(0,0);

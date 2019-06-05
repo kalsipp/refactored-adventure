@@ -4,7 +4,6 @@ import base.Point;
 import base.Vector2;
 import mapping.Map;
 import mapping.Tile;
-import org.jetbrains.annotations.Contract;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -29,6 +28,16 @@ public class Camera
         cameraPosition = new Vector2(position);
     }
 
+    public Vector2 getCameraPos()
+    {
+        return new Vector2(cameraPosition);
+    }
+
+    public Vector2 getCameraDir()
+    {
+        return new Vector2(cameraDirection);
+    }
+
     public void setCameraDirection(Vector2 direction)
     {
         cameraDirection = new Vector2(direction);
@@ -39,7 +48,7 @@ public class Camera
         cameraPlane = new Vector2(direction);
     }
 
-    public void move(double amount)
+    public void moveForward(double amount)
     {
         Vector2 dir = new Vector2(cameraDirection);
         dir.mult(amount);
@@ -139,6 +148,11 @@ public class Camera
 
 
             final Tile hitTile = currentMap.GetTile(new Point(mapX, mapY));
+            if(hitTile == null)
+            {
+                LOGGER.log(Level.WARNING, "Looking at a null tile");
+                continue;
+            }
             final Sprite hitSprite = hitTile.getSpriteRef();
             if(hitSprite == null)
             {

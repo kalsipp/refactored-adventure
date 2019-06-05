@@ -70,7 +70,7 @@ final public class Canvas {
     }
 
     /*
-     * Will print an escape command to move the terminal cursor
+     * Will print an escape command to moveForward the terminal cursor
      * to the requested cell.
      */
     private static void setCursorPosition(int px, int py) throws IOException {
