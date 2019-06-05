@@ -5,10 +5,12 @@ import graphics.Canvas;
 import graphics.Pixel;
 import graphics.Sprite;
 
+import java.io.IOException;
+import java.util.Random;
+
 public class Tile 
 {
 	boolean isPassable;
-	final Point tileSpriteSize = new Point(32,32);
 	Sprite sprite;
 	public Tile()
 	{
@@ -36,13 +38,12 @@ public class Tile
 		isPassable = false;
 	}
 	
-	final public Sprite getSpriteRef()
+	final public Sprite getSpriteRef() throws IOException
 	{
 		if (sprite == null)
 		{
 			/* Technically not meant to happen as renderable children will populate sprite */
-			sprite = new Sprite(tileSpriteSize);
-			sprite.clearSpriteToPixel(new Pixel(20));
+			sprite = Sprite.loadSpriteFromFile("../../../Media/bestimg2.img");
 		}
 		return sprite;
 	}

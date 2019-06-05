@@ -1,7 +1,9 @@
 package crawl;
 
+import java.io.BufferedReader;
 import java.io.Console;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import base.Helpers;
 import base.InputHandler;
@@ -24,7 +26,9 @@ class Crawler
         		+ "#......#\n"
         		+ "#......#\n"
         		+ "#...#..#\n"
-        		+ "########";
+				+ "#...#..#\n"
+				+ "#...#..#\n"
+				+ "########";
         Helpers.writeDataToFile(baseFilename, baseMap);
 		Map activeMap = MapLoader.loadMapFromFile(baseFilename);
 		Camera cam = new Camera();
@@ -32,9 +36,10 @@ class Crawler
 		InputHandler.initialize();
 		while(true)
 		{
-        	String input = console.readLine();
-        	String[] coords = input.split(",");
-        	
+			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+			String input = reader.readLine();
+			String[] coords = input.split(",");
+
         	if (coords[0].contentEquals("q"))
         	{
         		cam.rotate(-0.3);
@@ -51,7 +56,8 @@ class Crawler
         	{
         		cam.move(-0.3);
         	}
-    		cam.renderScreen(activeMap);
+
+			cam.renderScreen(activeMap);
 	    	Canvas.render();
 		}
 //		for(int i = 0; i < 20; i++)

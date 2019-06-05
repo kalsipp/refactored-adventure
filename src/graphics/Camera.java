@@ -4,14 +4,15 @@ import base.Point;
 import base.Vector2;
 import mapping.Map;
 import mapping.Tile;
+import org.jetbrains.annotations.Contract;
 
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Camera
 {
     private final static Logger LOGGER = Logger.getLogger(CameraTextureLess.class.getName());
-    final boolean useTextures = true;
     private Vector2 cameraPosition;
     private Vector2 cameraDirection;
     private Vector2 cameraPlane = new Vector2(0, 1); // Always perpendicular to cameraDir
@@ -51,7 +52,7 @@ public class Camera
         cameraPlane.rotate(amount);
     }
 
-    public void renderScreen(final Map currentMap)
+    public void renderScreen(final Map currentMap) throws IOException
     {
         final Point screenSize = Canvas.getScreenSize();
         final int screenWidth = screenSize.getX();
@@ -127,43 +128,15 @@ public class Camera
                     hit = true;
                 }
             }
-            double perpWallDist;
-            //Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
-            if (side == 0)
-            {
-                perpWallDist = (mapX - playerX + (1 - stepX) / 2) / rayDirX;
-            }
 
-            else
-            {
-                perpWallDist = (mapY - playerY + (1 - stepY) / 2) / rayDirY;
-            }
+            final double perpWallDist = getPerpWallDist(playerX, playerY, rayDirX, rayDirY, stepX, stepY, mapX, mapY, side);
 
             final int lineHeight = (int) (screenHeight / perpWallDist);
 
             //calculate lowest and highest pixel to fill in current stripe
-            int drawStart = -lineHeight / 2 + screenHeight / 2;
-            if (drawStart < 0)
-            {
-                drawStart = 0;
-            }
-            int drawEnd = lineHeight / 2 + screenHeight / 2;
-            if (drawEnd >= screenHeight)
-            {
-                drawEnd = screenHeight - 1;
-            }
+            final int drawStart = getDrawStart(screenHeight, lineHeight);
+            final int drawEnd = getDrawEnd(screenHeight, lineHeight);
 
-            //calculate value of wallX
-            double wallX; //where exactly the wall was hit
-            if (side == 0)
-            {
-                wallX = playerY + perpWallDist * rayDirY;
-            }
-            else
-            {
-                wallX = playerX + perpWallDist * rayDirX;
-            }
-            wallX -= Math.floor((wallX));
 
             final Tile hitTile = currentMap.GetTile(new Point(mapX, mapY));
             final Sprite hitSprite = hitTile.getSpriteRef();
@@ -172,38 +145,101 @@ public class Camera
                 LOGGER.log(Level.WARNING, "Tried to render null sprite");
             }
             final Point spriteSize = hitSprite.getSize();
-
-
-            //x coordinate on the texture
-            int textureXPos = (int)(wallX * (double)spriteSize.getX());
-            if(side == 0 && rayDirX > 0)
-            {
-                textureXPos = spriteSize.getX() - textureXPos - 1;
-            }
-            if(side == 1 && rayDirY < 0)
-            {
-                textureXPos = spriteSize.getX() - textureXPos - 1;
-            }
+            int textureXPos = getTextureXPos(playerX, playerY, rayDirX, rayDirY, side, perpWallDist, spriteSize);
 
             Sprite renderPalette = new Sprite(new Point(1, drawEnd-drawStart));
 
-            for(int y = drawStart; y < drawEnd; y++)
+            for(int cameraPosY = drawStart; cameraPosY < drawEnd; cameraPosY++)
             {
-                final int d  = y*256-screenHeight*128+lineHeight*128;
-                final int textureYPos = ((d * spriteSize.getY()) / lineHeight) / 256;
-                final Pixel hitPix = hitSprite.getPixel(new Point(textureYPos, textureXPos));
+                final int textureYPos = getTextureYPos(screenHeight, lineHeight, spriteSize, cameraPosY);
+                Pixel hitPix = hitSprite.getPixel(new Point(textureXPos, textureYPos));
                 if(hitPix != null)
                 {
-                    renderPalette.setPixel(new Point(0, y - drawStart), hitPix);
+
+                    if(side == 0)
+                    {
+                        hitPix = new Pixel(hitPix.getColor() + 1);
+                    }
+                    renderPalette.setPixel(new Point(0, cameraPosY - drawStart), hitPix);
                 }
                 else
                 {
-                    LOGGER.log(Level.WARNING, "Tried to render null pixel");
-                    LOGGER.log(Level.WARNING, "Tried to render null pixel");
+                    /* Seems to render fine even if we randomly get null pixels */
+                    //LOGGER.log(Level.WARNING, "Tried to render null pixel");
                 }
             }
             Canvas.paintSprite(renderPalette, new Point(sliceX, 0));
         }
+    }
+
+    private int getTextureYPos(int screenHeight, int lineHeight, Point spriteSize, int cameraPosY)
+    {
+        final int d  = (256*cameraPosY+lineHeight*128)-screenHeight*128;
+        return ((d * spriteSize.getY()) / lineHeight)/256;
+    }
+
+    private double getPerpWallDist(double playerX, double playerY, double rayDirX, double rayDirY, int stepX, int stepY, int mapX, int mapY, int side)
+    {
+        double perpWallDist;
+        //Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
+        if (side == 0)
+        {
+            perpWallDist = (mapX - playerX + (1 - stepX) / 2) / rayDirX;
+        }
+
+        else
+        {
+            perpWallDist = (mapY - playerY + (1 - stepY) / 2) / rayDirY;
+        }
+        return perpWallDist;
+    }
+
+    private int getDrawEnd(int screenHeight, int lineHeight)
+    {
+        int drawEnd = lineHeight / 2 + screenHeight / 2;
+        if (drawEnd >= screenHeight)
+        {
+            drawEnd = screenHeight - 1;
+        }
+        return drawEnd;
+    }
+
+    private int getDrawStart(final int screenHeight, final int lineHeight)
+    {
+        int drawStart = -lineHeight / 2 + screenHeight / 2;
+        if (drawStart < 0)
+        {
+            drawStart = 0;
+        }
+        return drawStart;
+    }
+
+    private int getTextureXPos(double playerX, double playerY, double rayDirX, double rayDirY, int side, double perpWallDist, Point spriteSize)
+    {
+        //calculate value of wallX
+        double wallX; //where exactly the wall was hit
+        if (side == 0)
+        {
+            wallX = playerY + perpWallDist * rayDirY;
+        }
+        else
+        {
+            wallX = playerX + perpWallDist * rayDirX;
+        }
+        wallX -= Math.floor(wallX);
+
+
+        //x coordinate on the texture
+        int textureXPos = (int)(wallX * (double)spriteSize.getX());
+        if(side == 0 && rayDirX > 0)
+        {
+            textureXPos = spriteSize.getX() - textureXPos - 1;
+        }
+        if(side == 1 && rayDirY < 0)
+        {
+            textureXPos = spriteSize.getX() - textureXPos - 1;
+        }
+        return textureXPos;
     }
 
 }
