@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import base.Point;
 import base.Vector2;
-import graphics.CameraTextureLess;
 import graphics.Canvas;
 import graphics.Camera;
 import graphics.Pixel;

@@ -11,15 +11,16 @@ import java.util.logging.Logger;
 
 public class Camera
 {
-    private final static Logger LOGGER = Logger.getLogger(CameraTextureLess.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(Camera.class.getName());
     private Vector2 cameraPosition;
     private Vector2 cameraDirection;
-    private Vector2 cameraPlane = new Vector2(0, 1); // Always perpendicular to cameraDir
+    private Vector2 cameraPlane;
 
     public Camera()
     {
         cameraPosition = Vector2.zero();
         cameraDirection = new Vector2(-1, 0);
+        cameraPlane = new Vector2(0, 1); // Always perpendicular to cameraDir
     }
 
 
@@ -28,10 +29,7 @@ public class Camera
         cameraPosition = new Vector2(position);
     }
 
-    public Vector2 getCameraPos()
-    {
-        return new Vector2(cameraPosition);
-    }
+    public Vector2 getCameraPos() { return new Vector2(cameraPosition); }
 
     public Vector2 getCameraDir()
     {
@@ -66,8 +64,15 @@ public class Camera
         final Point screenSize = Canvas.getScreenSize();
         final int screenWidth = screenSize.getX();
         final int screenHeight = screenSize.getY();
-        final double playerX = cameraPosition.getX();
-        final double playerY = cameraPosition.getY();
+
+        /* Move camera temporarily a bit backwards to get a better view */
+        final Vector2 tempPos = new Vector2(cameraPosition);
+        Vector2 dir = new Vector2(cameraDirection);
+        dir.mult(-Map.tileSize/4); //Move 1/4th back
+        tempPos.add(dir);
+
+        final double playerX = tempPos.getX();
+        final double playerY = tempPos.getY();
         for (int sliceX = 0; sliceX < screenWidth; sliceX++)
         {
             final double cameraX = (2 * sliceX / ((double) screenWidth)) - 1; //x-coordinate in camera space

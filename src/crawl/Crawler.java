@@ -8,6 +8,8 @@ import base.Point;
 import base.Vector2;
 import graphics.Camera;
 import graphics.Canvas;
+import graphics.Pixel;
+import graphics.Sprite;
 import mapping.Map;
 import mapping.MapLoader;
 
@@ -37,11 +39,16 @@ class Crawler
 		frame.setSize(400, 400);
 		KeySniffer keyboard = new KeySniffer();
 		frame.addKeyListener(keyboard);
+		Point screenSize = Canvas.getScreenSize();
+		Sprite background = new Sprite(screenSize, new Pixel(7));
+		Sprite grid = Sprite.loadSpriteFromFile("../../../Media/grid.img");
 
 		while(true)
 		{
 			if(keyboard.newKeyPressed())
 			{
+				Canvas.paintSprite(background, Point.zero());
+				Canvas.paintSprite(grid, Point.zero());
 				move(keyboard.getKeyPressed(), cam, activeMap);
 				cam.renderScreen(activeMap);
 				Canvas.render();

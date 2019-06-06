@@ -16,7 +16,8 @@ final public class Canvas {
 
     /* ---- Public ---- */
 
-    public static void initialize() throws IOException {
+    public static void initialize() throws IOException
+    {
 
         Point size = getInternalScreenSize();
         mainScreen = new Sprite(size);
@@ -32,7 +33,8 @@ final public class Canvas {
         return new Sprite(mainScreen);
     }
 
-    public static void teardown() {
+    public static void teardown()
+    {
     }
 
     /*
@@ -46,7 +48,8 @@ final public class Canvas {
     /*
      * "Renders" or prints the image onto the terminal.
      */
-    public static void render() throws IOException {
+    public static void render() throws IOException
+    {
         if (previousMainScreen == null) {
             fullPrint();
         } else {
@@ -56,24 +59,28 @@ final public class Canvas {
         mainScreen.clearSpriteToPixel(new Pixel(0));
     }
 
-    public static Point getScreenSize() {
+    public static Point getScreenSize()
+    {
         return getInternalScreenSize();
     }
 
     /* ---- Private ---- */
 
-    private Canvas() {
+    private Canvas()
+    {
     }
 
-    private static Point getInternalScreenSize() {
-        return new Point(135, 70);  //Hard coded for full-sized window.
+    private static Point getInternalScreenSize()
+    {
+        return new Point(136, 70);  //Hard coded for full-sized window.
     }
 
     /*
      * Will print an escape command to moveForward the terminal cursor
      * to the requested cell.
      */
-    private static void setCursorPosition(int px, int py) throws IOException {
+    private static void setCursorPosition(int px, int py) throws IOException
+    {
         px++; //escape is 1 base
         py++;
         printer.write("\033[" + py + ";" + px + "H");
@@ -82,17 +89,22 @@ final public class Canvas {
     /*
      * Will print an escape command to clear the screen.
      */
-    private static void clearScreen() throws IOException {
+    private static void clearScreen() throws IOException
+    {
         printer.write("\033[2J");
     }
 
-    private static void selectivePrint() throws IOException {
-        for (int y = 0; y < mainScreen.getSize().getY(); y++) {
-            for (int x = 0; x < mainScreen.getSize().getX(); x++) {
+    private static void selectivePrint() throws IOException
+    {
+        for (int y = 0; y < mainScreen.getSize().getY(); y++)
+        {
+            for (int x = 0; x < mainScreen.getSize().getX(); x++)
+            {
                 Point pos = new Point(x, y);
                 Pixel nextPixel = mainScreen.getPixel(pos);
                 Pixel oldPixel = previousMainScreen.getPixel(pos);
-                if (!nextPixel.equals(oldPixel)) {
+                if (!nextPixel.equals(oldPixel))
+                {
                     setCursorPosition(Pixel.pixelWidth() * x, y);
                     printer.write(nextPixel.getString());
                     printer.flush();
@@ -101,12 +113,15 @@ final public class Canvas {
         }
     }
 
-    private static void fullPrint() throws IOException {
+    private static void fullPrint() throws IOException
+    {
         clearScreen();
         setCursorPosition(0, 0);
-        for (int y = 0; y < mainScreen.getSize().getY(); y++) {
+        for (int y = 0; y < mainScreen.getSize().getY(); y++)
+        {
             StringBuilder nextLine = new StringBuilder();
-            for (int x = 0; x < mainScreen.getSize().getX(); x++) {
+            for (int x = 0; x < mainScreen.getSize().getX(); x++)
+            {
                 Point pos = new Point(x, y);
                 Pixel nextPixel = mainScreen.getPixel(pos);
                 nextLine.append(nextPixel.getString());

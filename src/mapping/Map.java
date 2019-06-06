@@ -5,7 +5,7 @@ import base.Point;
 public class Map 
 {
 	private final Tile[][] tiles;
-
+	public final static double tileSize = 1;
 	public Map(Point size)
 	{
 		tiles = new Tile[size.getY()][size.getX()];

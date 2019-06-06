@@ -15,6 +15,12 @@ public class Sprite {
         clearSpriteToPixel(new Pixel(0));
     }
 
+    public Sprite(Point _size, Pixel pix) {
+        size = _size;
+        pixels = new Pixel[size.getY()][size.getX()];
+        clearSpriteToPixel(pix);
+    }
+
     public Sprite(Sprite another) {
         size = new Point(another.size);
         pixels = new Pixel[size.getY()][size.getX()];
