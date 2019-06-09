@@ -355,15 +355,15 @@ RGB2SHORT_DICT, SHORT2RGB_DICT = _create_dicts()
 
 #---------------------------------------------------------------------
 
-if __name__ == '__main__':
+def convert_image(filename):
     from PIL import Image
-    parts = sys.argv[1].split('.')
+    parts = filename.split(".")
     if len(parts) != 2:
         raise AssertionError("Incorrect arguments, Example usage: script.py name.jpg")
     output_filename = parts[0] + '.img'
     f = open(output_filename, 'w')
-    im = Image.open(sys.argv[1])
-    print("Converting " + sys.argv[1] + " to " + output_filename)
+    im = Image.open(filename)
+    print("Converting " + filename + " to " + output_filename)
     print("Image is " + str(im.size[0]) + "x" + str(im.size[1]))
     for y in range(im.size[1]):
         for x in range(im.size[0]):
@@ -374,3 +374,6 @@ if __name__ == '__main__':
             f.write("%s " % short)
         f.write("\n");
     f.close()
+
+if __name__ == '__main__':
+    convert_image(sys.argv[1])
