@@ -13,6 +13,7 @@ public class MapLoader
 {
 	private final static String basemapEnding = "yeoldemappe";
 	private final static String overrideEnding = "json";
+	
 	static public Map loadMapFromFile(String path) throws IOException
 	{
 		StringBuilder basePath = new StringBuilder();

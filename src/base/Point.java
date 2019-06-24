@@ -10,10 +10,10 @@ public class Point
         y = _y;
     }
 
-    public Point(Vector2 cameraPosition)
+    public Point(Vector2 vec2)
     {
-        x = (int)Math.round(cameraPosition.getX());
-        y = (int)Math.round(cameraPosition.getY());
+        x = (int)Math.round(vec2.getX());
+        y = (int)Math.round(vec2.getY());
     }
 
     public static Point zero()

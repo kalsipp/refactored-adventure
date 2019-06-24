@@ -43,7 +43,7 @@ public class Tile
 		if (sprite == null)
 		{
 			/* Technically not meant to happen as renderable children will populate sprite */
-			sprite = Sprite.loadSpriteFromFile("../../../Media/stonewall_simple_6464.img");
+			sprite = Sprite.loadSpriteFromFile("sprites/stonewall_simple_6464.img");
 		}
 		return sprite;
 	}

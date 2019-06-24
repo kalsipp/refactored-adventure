@@ -41,10 +41,15 @@ class Crawler
 		frame.addKeyListener(keyboard);
 		Point screenSize = Canvas.getScreenSize();
 		Sprite background = new Sprite(screenSize, new Pixel(7));
-		Sprite grid = Sprite.loadSpriteFromFile("../../../Media/grid.img");
+		Sprite grid = Sprite.loadSpriteFromFile("sprites/grid.img");
 
+		Canvas.paintSprite(background, Point.zero());
+		Canvas.paintSprite(grid, Point.zero());
+		cam.renderScreen(activeMap);
+		Canvas.render();
 		while(true)
 		{
+
 			if(keyboard.newKeyPressed())
 			{
 				Canvas.paintSprite(background, Point.zero());

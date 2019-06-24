@@ -1,0 +1,1 @@
+py -3 build_all_imgs.py ../out/artifacts/CrawlEclipse_jar/sprites/
