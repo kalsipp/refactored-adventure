@@ -1,16 +1,18 @@
 package mapping;
 
-public final class Door extends Tile 
+import graphics.Sprite;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+public final class Door extends Tile
 {
-	private final String targetFloor;
-	public Door(String _targetFloor)
+	boolean locked;
+	public Door (JSONObject details, JSONObject defaultInfo) throws IOException
 	{
-		targetFloor = _targetFloor;
-		isPassable = false;
-	}
-	
-	public String getTargetFloor()
-	{
-		return targetFloor;
+		locked = details.getBoolean("locked");
+		isPassable = defaultInfo.getBoolean("passable");
+		if(locked) isPassable = false;
+		sprite = Sprite.loadSpriteFromFile(defaultInfo.getString("sprite"));
 	}
 }

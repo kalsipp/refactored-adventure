@@ -61,13 +61,7 @@ public class Point
     	x += other.x;
     	y += other.y;
     }
-    
-    public void subtract(Point other)
-    {
-    	x -= other.x;
-    	y -= other.y;
-    }
-    
+
     public boolean equals(Point other)
     {
     	return x == other.x && y == other.y;

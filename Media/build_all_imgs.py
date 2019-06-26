@@ -15,6 +15,9 @@ def conv_imgs(output_dir):
     all_converted_img_names = [file.split(".")[0]+".img" for file in all_imgs]
     os.makedirs(output_dir, exist_ok=True)
     for filename in all_converted_img_names:
+        expected_path = output_dir + "/"+filename
+        if(os.path.isfile(expected_path)):
+            os.remove(expected_path)
         shutil.move("./" + filename, output_dir)
 
 if __name__ == '__main__':

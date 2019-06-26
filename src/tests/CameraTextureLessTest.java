@@ -67,18 +67,18 @@ class CameraTextureLessTest
 	@Test
 	void renderTextureLessTest() throws IOException 
 	{
-		final String baseFilename = "cameraTestfile.yeoldemappe";
-		String baseMap = "###\n"
-					   + "#.#\n"
-					   + "###";
-		writeDataToFile(baseFilename, baseMap);
-		Map activeMap = MapLoader.loadMapFromFile(baseFilename);
-		Camera cam = new Camera();
-		Canvas.initialize();
-		cam.setCameraPos(new Vector2(1.5,1.5));
-		cam.setCameraDirection(new Vector2(-1,0));
-		cam.setCameraPlane(new Vector2(0, 0.5));
-		cam.renderScreen(activeMap);
+//		final String baseFilename = "cameraTestfile.yeoldemappe";
+//		String baseMap = "###\n"
+//					   + "#.#\n"
+//					   + "###";
+//		writeDataToFile(baseFilename, baseMap);
+//		Map activeMap = MapLoader.loadMapFromFile(baseFilename);
+//		Camera cam = new Camera();
+//		Canvas.initialize();
+//		cam.setCameraPos(new Vector2(1.5,1.5));
+//		cam.setCameraDirection(new Vector2(-1,0));
+//		cam.setCameraPlane(new Vector2(0, 0.5));
+//		cam.renderScreen(activeMap);
 //		Sprite plannedImg = Canvas.GetPlannedImage();
 		/* Not testing anything yet */
 	}

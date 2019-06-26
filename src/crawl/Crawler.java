@@ -17,13 +17,13 @@ import javax.swing.*;
 
 class Crawler
 {
-    public static void main( String[] args ) throws IOException
+    public static void main( String[] args ) throws Exception
     {
         Canvas.initialize();
         Console console = System.console();
         final String baseFilename = "testfile.yeoldemappe";
         String baseMap = 
-        		  "########\n"
+        		  "##^#####\n"
         		+ "#......#\n"
         		+ "#......#\n"
         		+ "#...#..#\n"

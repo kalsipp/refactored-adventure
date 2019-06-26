@@ -3,12 +3,16 @@ package mapping;
 import base.Point;
 import graphics.Pixel;
 import graphics.Sprite;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 public class Wall extends Tile 
 {
-	public Wall(Sprite _sprite)
+	public Wall() throws IOException
 	{
-		sprite = _sprite;
+		sprite = Sprite.loadSpriteFromFile("sprites/stonewall_simple_6464.img");
+		isPassable = false;
 	}
 
 }
