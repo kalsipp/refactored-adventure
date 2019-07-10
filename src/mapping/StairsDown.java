@@ -8,7 +8,11 @@ public class StairsDown extends Tile
 {
     public StairsDown() throws IOException
     {
-        isPassable = true;
-        sprite = Sprite.loadSpriteFromFile("sprites/redgreen.img");
+        TileSettings sett = new TileSettings(
+                true,
+                false,
+                Sprite.loadSpriteFromFile("sprites/redgreen.img")
+        );
+        setSettings(sett);
     }
 }

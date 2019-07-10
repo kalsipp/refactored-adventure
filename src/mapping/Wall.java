@@ -11,8 +11,12 @@ public class Wall extends Tile
 {
 	public Wall() throws IOException
 	{
-		sprite = Sprite.loadSpriteFromFile("sprites/stonewall_simple_6464.img");
-		isPassable = false;
+		TileSettings sett = new TileSettings(
+				false,
+				true,
+				Sprite.loadSpriteFromFile("sprites/stonewall_simple_6464.img")
+		);
+		setSettings(sett);
 	}
 
 }

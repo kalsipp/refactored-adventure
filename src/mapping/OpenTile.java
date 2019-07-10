@@ -1,9 +1,18 @@
 package mapping;
 
+import graphics.Sprite;
+
+import java.io.IOException;
+
 public class OpenTile extends Tile
 {
-    public OpenTile()
+    public OpenTile() throws IOException
     {
-        isPassable = true;
+        TileSettings sett = new TileSettings(
+                true,
+                false,
+                Sprite.loadSpriteFromFile("sprites/bestimg2.img")
+        );
+        setSettings(sett);
     }
 }

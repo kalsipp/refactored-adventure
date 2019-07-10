@@ -25,7 +25,20 @@ public class Map
 			tiles[pos.getY()][pos.getX()] = newTile;
 		}
 	}
-	
+
+	public boolean IsTileVisibleAt(Point pos)
+	{
+		Tile tile = GetTile(pos);
+		if(tile != null)
+		{
+			return tile.isVisible();
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 	public boolean IsTilePassableAt(Point pos)
 	{
 		Tile tile = GetTile(pos);

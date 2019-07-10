@@ -16,6 +16,8 @@ public class Camera
     private Vector2 cameraDirection;
     private Vector2 cameraPlane;
 
+    public boolean renderedNullTile = false; /* For unit tests */
+
     public Camera()
     {
         cameraPosition = Vector2.zero();
@@ -73,6 +75,7 @@ public class Camera
 
         final double playerX = tempPos.getX();
         final double playerY = tempPos.getY();
+        renderedNullTile = false;
         for (int sliceX = 0; sliceX < screenWidth; sliceX++)
         {
             final double cameraX = (2 * sliceX / ((double) screenWidth)) - 1; //x-coordinate in camera space
@@ -137,7 +140,7 @@ public class Camera
                     side = 1;
                 }
                 //Check if ray has hit a wall
-                if (!currentMap.IsTilePassableAt(new Point(mapX, mapY)))
+                if (currentMap.IsTileVisibleAt(new Point(mapX, mapY)))
                 {
                     hit = true;
                 }
@@ -156,6 +159,7 @@ public class Camera
             if(hitTile == null)
             {
                 LOGGER.log(Level.WARNING, "Looking at a null tile");
+                renderedNullTile = true;
                 continue;
             }
             final Sprite hitSprite = hitTile.getSpriteRef();
