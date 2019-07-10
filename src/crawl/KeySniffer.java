@@ -5,28 +5,41 @@ import java.awt.event.KeyListener;
 
 public class KeySniffer implements KeyListener
 {
-    public void keyPressed(KeyEvent evt) { /* Not used */ }
 
-    boolean pressedKeyValidValue = false;
-    char pressedKey;
+    final static public char UNKNOWN_CHAR = (char)0;
+    char pressedKey = UNKNOWN_CHAR;
     enum KEYPRESSSTATE
     {
         PRESSED,
         NOT_PRESSED
     };
+    boolean newKeyPressed = false;
     KEYPRESSSTATE keyPressState = KEYPRESSSTATE.NOT_PRESSED;
     KEYPRESSSTATE lastFrameKeyPressState = KEYPRESSSTATE.NOT_PRESSED;
-    public void updateKeypressState()
+
+    public synchronized void resetNewKeyPressedState()
     {
-        lastFrameKeyPressState = keyPressState;
+        newKeyPressed = false;
     }
 
-    public boolean newKeyPressed()
+    @Override
+    public void keyPressed(KeyEvent e)
     {
-        return lastFrameKeyPressState == KEYPRESSSTATE.NOT_PRESSED && keyPressState == KEYPRESSSTATE.PRESSED;
+        if(keyPressState == KEYPRESSSTATE.NOT_PRESSED)
+        {
+            pressedKey = e.getKeyChar();
+            keyPressState = KEYPRESSSTATE.PRESSED;
+            newKeyPressed = true;
+        }
+
     }
 
-    public char getKeyPressed()
+    public synchronized boolean newKeyPressed()
+    {
+        return newKeyPressed;
+    }
+
+    public synchronized char getKeyPressed()
     {
         return pressedKey;
     }
@@ -34,24 +47,14 @@ public class KeySniffer implements KeyListener
     @Override
     public void keyReleased(KeyEvent e)
     {
-        if(pressedKeyValidValue && e.getKeyChar() == pressedKey)
+
+        if(keyPressState == KEYPRESSSTATE.PRESSED && e.getKeyChar() == pressedKey)
         {
-            pressedKeyValidValue = false;
             keyPressState = KEYPRESSSTATE.NOT_PRESSED;
         }
-        updateKeypressState();
     }
 
     @Override
     public void keyTyped(KeyEvent e)
-    {
-        if(!pressedKeyValidValue)
-        {
-            pressedKeyValidValue = true;
-            pressedKey = e.getKeyChar();
-            keyPressState = KEYPRESSSTATE.PRESSED;
-        }
-        updateKeypressState();
-
-    }
+    { /* Not used, mandatory function */ }
 }

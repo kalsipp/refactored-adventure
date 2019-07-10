@@ -20,9 +20,8 @@ class Crawler
     public static void main( String[] args ) throws Exception
     {
         Canvas.initialize();
-        Console console = System.console();
         final String baseFilename = "testfile.yeoldemappe";
-        String baseMap = 
+        String baseMap =
         		  "##^#####\n"
         		+ "#......#\n"
         		+ "#......#\n"
@@ -34,11 +33,13 @@ class Crawler
 		Map activeMap = MapLoader.loadMapFromFile(baseFilename);
 		Camera cam = new Camera();
 		cam.setCameraPos(new Vector2(2.5,2.5));
+
 		JFrame frame = new JFrame("Fugg");
 		frame.setVisible(true);
 		frame.setSize(400, 400);
 		KeySniffer keyboard = new KeySniffer();
 		frame.addKeyListener(keyboard);
+
 		Point screenSize = Canvas.getScreenSize();
 		Sprite background = new Sprite(screenSize, new Pixel(7));
 		Sprite grid = Sprite.loadSpriteFromFile("sprites/grid.img");
@@ -57,16 +58,13 @@ class Crawler
 				move(keyboard.getKeyPressed(), cam, activeMap);
 				cam.renderScreen(activeMap);
 				Canvas.render();
+				keyboard.resetNewKeyPressedState();
 			}
-
 		}
     }
 
 	private static void move(final char keyPressed, Camera cam, final Map map)
 	{
-
-
-
 		int plannedMovement = 0;
 		if(keyPressed == 'w')
 		{

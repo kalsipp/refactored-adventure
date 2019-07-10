@@ -36,7 +36,7 @@ public class Vector2
 	public void mult(final Vector2 other)
 	{
 		x *= other.x;
-		y += other.y;
+		y *= other.y;
 	}
 	
 	public void mult(double factor)
@@ -45,7 +45,7 @@ public class Vector2
 		y *= factor;
 	}
 
-	
+
 	/*
 	 * rotate around the X-axis
 	 * X axis defined as pointing up
