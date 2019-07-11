@@ -15,7 +15,7 @@ public class MapLoader
         return newMap;
     }
 
-    private static Map buildMapFromText(String string, Map newMap) throws Exception
+    private static void buildMapFromText(String string, Map newMap) throws Exception
     {
         Point currentPos = Point.zero();
         for(int index = 0; index < string.length(); index++)
@@ -33,7 +33,6 @@ public class MapLoader
                 currentPos.add(Point.right());
             }
         }
-        return newMap;
     }
 
     private static Point getSizeOfMap(String string)

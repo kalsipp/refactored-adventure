@@ -7,12 +7,10 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import base.Point;
+
 import base.Vector2;
 import graphics.Canvas;
 import graphics.Camera;
-import graphics.Pixel;
-import graphics.Sprite;
 import mapping.Map;
 import mapping.MapLoader;
 

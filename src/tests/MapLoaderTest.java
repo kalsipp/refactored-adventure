@@ -7,7 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import mapping.*;
-import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import base.Point;

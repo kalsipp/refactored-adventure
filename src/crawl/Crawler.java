@@ -1,7 +1,5 @@
 package crawl;
 
-import java.awt.*;
-import java.io.Console;
 import java.io.IOException;
 
 import base.Helpers;

@@ -3,7 +3,6 @@ package tests;
 import base.Vector2;
 import org.junit.jupiter.api.Test;
 
-import java.util.Vector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

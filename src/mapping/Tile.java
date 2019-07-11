@@ -1,13 +1,8 @@
 package mapping;
 
-import base.Point;
-import graphics.Canvas;
-import graphics.Pixel;
 import graphics.Sprite;
-import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Random;
 
 class TileSettings
 {

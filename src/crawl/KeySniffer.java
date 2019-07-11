@@ -12,7 +12,7 @@ public class KeySniffer implements KeyListener
     {
         PRESSED,
         NOT_PRESSED
-    };
+    }
     boolean newKeyPressed = false;
     KEYPRESSSTATE keyPressState = KEYPRESSSTATE.NOT_PRESSED;
 

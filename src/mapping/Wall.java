@@ -1,9 +1,6 @@
 package mapping;
 
-import base.Point;
-import graphics.Pixel;
 import graphics.Sprite;
-import org.json.JSONObject;
 
 import java.io.IOException;
 

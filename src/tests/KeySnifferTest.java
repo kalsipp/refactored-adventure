@@ -20,8 +20,7 @@ public class KeySnifferTest
     KeyEvent makeDummyKeyEvent(char key)
     {
         Component cmp = new DummyComp();
-        KeyEvent event = new KeyEvent(cmp, 0, 0, 0, 0, key);
-        return event;
+        return new KeyEvent(cmp, 0, 0, 0, 0, key);
     }
     @Test
     void keyPressedTest()
