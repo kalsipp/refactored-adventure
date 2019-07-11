@@ -107,10 +107,11 @@ final public class Canvas {
                 {
                     setCursorPosition(Pixel.pixelWidth() * x, y);
                     printer.write(nextPixel.getString());
-                    printer.flush();
+
                 }
             }
         }
+        printer.flush();
     }
 
     private static void fullPrint() throws IOException

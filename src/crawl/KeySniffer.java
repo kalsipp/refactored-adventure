@@ -15,15 +15,13 @@ public class KeySniffer implements KeyListener
     };
     boolean newKeyPressed = false;
     KEYPRESSSTATE keyPressState = KEYPRESSSTATE.NOT_PRESSED;
-    KEYPRESSSTATE lastFrameKeyPressState = KEYPRESSSTATE.NOT_PRESSED;
 
     public synchronized void resetNewKeyPressedState()
     {
         newKeyPressed = false;
     }
 
-    @Override
-    public void keyPressed(KeyEvent e)
+    synchronized void handleKeyPressed(KeyEvent e)
     {
         if(keyPressState == KEYPRESSSTATE.NOT_PRESSED)
         {
@@ -31,7 +29,20 @@ public class KeySniffer implements KeyListener
             keyPressState = KEYPRESSSTATE.PRESSED;
             newKeyPressed = true;
         }
+    }
 
+    synchronized void handleKeyReleased(KeyEvent e)
+    {
+        if(keyPressState == KEYPRESSSTATE.PRESSED && e.getKeyChar() == pressedKey)
+        {
+            keyPressState = KEYPRESSSTATE.NOT_PRESSED;
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e)
+    {
+        handleKeyPressed(e);
     }
 
     public synchronized boolean newKeyPressed()
@@ -47,11 +58,7 @@ public class KeySniffer implements KeyListener
     @Override
     public void keyReleased(KeyEvent e)
     {
-
-        if(keyPressState == KEYPRESSSTATE.PRESSED && e.getKeyChar() == pressedKey)
-        {
-            keyPressState = KEYPRESSSTATE.NOT_PRESSED;
-        }
+        handleKeyReleased(e);
     }
 
     @Override

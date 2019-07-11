@@ -17,6 +17,11 @@ public class Map
 			}
 		}
 	}
+
+	public boolean IsInsideMap(Point pos)
+	{
+		return tilesContainPos(pos);
+	}
 	
 	public void SetTile(Point pos, Tile newTile)
 	{

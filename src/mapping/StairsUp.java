@@ -10,7 +10,7 @@ public class StairsUp extends Tile
     {
         TileSettings sett = new TileSettings(
                 true,
-                false,
+                true,
                 Sprite.loadSpriteFromFile("sprites/blueyellow.img")
         );
         setSettings(sett);

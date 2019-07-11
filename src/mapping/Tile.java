@@ -18,7 +18,7 @@ class TileSettings
 					Sprite sprite_
 			)
 	{
-		isPassable = isPassable;
+		isPassable = isPassable_;
 		isVisible = isVisible_;
 		sprite = sprite_;
 	}
@@ -65,7 +65,7 @@ public class Tile
 		if (settings.sprite == null)
 		{
 			/* Technically not meant to happen as renderable children will populate sprite */
-			settings.sprite = Sprite.loadSpriteFromFile("sprites/bestimg.img");
+			settings.sprite = Sprite.loadSpriteFromFile("sprites/bestimg2.img");
 		}
 		return settings.sprite;
 	}

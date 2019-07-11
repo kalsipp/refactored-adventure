@@ -10,7 +10,7 @@ public class StairsDown extends Tile
     {
         TileSettings sett = new TileSettings(
                 true,
-                false,
+                true,
                 Sprite.loadSpriteFromFile("sprites/redgreen.img")
         );
         setSettings(sett);

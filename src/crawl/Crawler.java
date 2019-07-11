@@ -1,5 +1,6 @@
 package crawl;
 
+import java.awt.*;
 import java.io.Console;
 import java.io.IOException;
 
@@ -22,7 +23,8 @@ class Crawler
         Canvas.initialize();
         final String baseFilename = "testfile.yeoldemappe";
         String baseMap =
-        		  "##^#####\n"
+				  "########\n"
+        		+ "##^#####\n"
         		+ "#......#\n"
         		+ "#......#\n"
         		+ "#...#..#\n"
@@ -40,6 +42,8 @@ class Crawler
 		KeySniffer keyboard = new KeySniffer();
 		frame.addKeyListener(keyboard);
 
+
+
 		Point screenSize = Canvas.getScreenSize();
 		Sprite background = new Sprite(screenSize, new Pixel(7));
 		Sprite grid = Sprite.loadSpriteFromFile("sprites/grid.img");
@@ -53,15 +57,20 @@ class Crawler
 
 			if(keyboard.newKeyPressed())
 			{
-				Canvas.paintSprite(background, Point.zero());
-				Canvas.paintSprite(grid, Point.zero());
-				move(keyboard.getKeyPressed(), cam, activeMap);
-				cam.renderScreen(activeMap);
-				Canvas.render();
+				HandleUpdate(keyboard.getKeyPressed(), cam, background, grid, activeMap);
 				keyboard.resetNewKeyPressedState();
 			}
 		}
     }
+
+    private static synchronized void HandleUpdate(final char keyPressed, Camera cam, Sprite background, Sprite grid, Map activeMap) throws IOException
+	{
+		Canvas.paintSprite(background, Point.zero());
+		Canvas.paintSprite(grid, Point.zero());
+		move(keyPressed, cam, activeMap);
+		cam.renderScreen(activeMap);
+		Canvas.render();
+	}
 
 	private static void move(final char keyPressed, Camera cam, final Map map)
 	{

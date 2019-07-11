@@ -124,8 +124,10 @@ public class Camera
             int mapY = playerMapPosY;
             int side = 0; //was a NS or a EW wall hit?
             //perform DDA
+            int count = 0;
             while (!hit)
             {
+                count ++;
                 //jump to next map square, OR in x-direction, OR in y-direction
                 if (sideDistX < sideDistY)
                 {
@@ -140,6 +142,13 @@ public class Camera
                     side = 1;
                 }
                 //Check if ray has hit a wall
+                Point pos = new Point(mapX, mapY);
+                if(!currentMap.IsInsideMap(pos))
+                {
+                    LOGGER.log(Level.WARNING, "Camera looking out of bounds");
+                    renderedNullTile = true;
+                    continue;
+                }
                 if (currentMap.IsTileVisibleAt(new Point(mapX, mapY)))
                 {
                     hit = true;
