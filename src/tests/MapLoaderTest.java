@@ -43,16 +43,16 @@ class MapLoaderTest
 				switch(lines[y].charAt(x))
 				{
 				case '#':
-					assertTrue(map.GetTile(new Point(x,y)) instanceof Wall);
+					assertTrue(map.getTile(new Point(x,y)) instanceof Wall);
 					break;
 				case '.':
-					assertTrue(map.GetTile(new Point(x,y)) instanceof OpenTile);
+					assertTrue(map.getTile(new Point(x,y)) instanceof OpenTile);
 					break;
 				case '^':
-					assertTrue(map.GetTile(new Point(x,y)) instanceof StairsUp);
+					assertTrue(map.getTile(new Point(x,y)) instanceof StairsUp);
 					break;
 				case 'v':
-					assertTrue(map.GetTile(new Point(x,y)) instanceof StairsDown);
+					assertTrue(map.getTile(new Point(x,y)) instanceof StairsDown);
 					break;
 				default:
 					fail();

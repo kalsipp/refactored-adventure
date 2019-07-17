@@ -1,5 +1,6 @@
 package mapping;
 
+import crawl.SceneHandler;
 import graphics.Sprite;
 
 import java.io.IOException;
@@ -14,5 +15,11 @@ public class StairsUp extends Tile
                 Sprite.loadSpriteFromFile("sprites/blueyellow.img")
         );
         setSettings(sett);
+    }
+
+    @Override
+    public void onTileEnter() throws Exception
+    {
+        SceneHandler.loadShallowerMap();
     }
 }

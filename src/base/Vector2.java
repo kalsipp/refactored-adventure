@@ -16,8 +16,14 @@ public class Vector2
 		x = other.x;
 		y = other.y;
 	}
-	
-	public double getX()
+
+	public Vector2(Point other)
+	{
+		x = other.getX();
+		y = other.getY();
+	}
+
+    public double getX()
 	{
 		return x;
 	}
@@ -45,6 +51,10 @@ public class Vector2
 		y *= factor;
 	}
 
+	public boolean isEqual(Vector2 other)
+	{
+		return other.x == x && other.y == y;
+	}
 
 	/*
 	 * rotate around the X-axis

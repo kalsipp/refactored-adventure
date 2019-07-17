@@ -26,6 +26,7 @@ class TileSettings
 public class Tile 
 {
 	TileSettings settings;
+	protected boolean isStart = false;
 	public Tile()
 
 	{
@@ -54,7 +55,7 @@ public class Tile
 	{
 		settings.isPassable = false;
 	}
-	
+	final public boolean isStart(){return isStart;}
 	final public Sprite getSpriteRef() throws IOException
 	{
 		if (settings.sprite == null)
@@ -64,4 +65,6 @@ public class Tile
 		}
 		return settings.sprite;
 	}
+	public void onTileEnter() throws Exception
+	{ /* To be overridden if needed */ }
 }

@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 public class Camera
 {
+    // TODO: Add a "rotateToAngle". It will need that the world has determined where all positive axes are pointing.
     private final static Logger LOGGER = Logger.getLogger(Camera.class.getName());
     private Vector2 cameraPosition;
     private Vector2 cameraDirection;
@@ -36,16 +37,6 @@ public class Camera
     public Vector2 getCameraDir()
     {
         return new Vector2(cameraDirection);
-    }
-
-    public void setCameraDirection(Vector2 direction)
-    {
-        cameraDirection = new Vector2(direction);
-    }
-
-    public void setCameraPlane(Vector2 direction)
-    {
-        cameraPlane = new Vector2(direction);
     }
 
     public void moveForward(double amount)
@@ -143,13 +134,13 @@ public class Camera
                 }
                 //Check if ray has hit a wall
                 Point pos = new Point(mapX, mapY);
-                if(!currentMap.IsInsideMap(pos))
+                if(!currentMap.isInsideMap(pos))
                 {
                     LOGGER.log(Level.WARNING, "Camera looking out of bounds");
                     renderedNullTile = true;
                     continue;
                 }
-                if (currentMap.IsTileVisibleAt(new Point(mapX, mapY)))
+                if (currentMap.isTileVisibleAt(new Point(mapX, mapY)))
                 {
                     hit = true;
                 }
@@ -164,7 +155,7 @@ public class Camera
             final int drawEnd = getDrawEnd(screenHeight, lineHeight);
 
 
-            final Tile hitTile = currentMap.GetTile(new Point(mapX, mapY));
+            final Tile hitTile = currentMap.getTile(new Point(mapX, mapY));
             if(hitTile == null)
             {
                 LOGGER.log(Level.WARNING, "Looking at a null tile");

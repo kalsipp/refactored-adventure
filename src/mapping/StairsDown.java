@@ -1,5 +1,6 @@
 package mapping;
 
+import crawl.SceneHandler;
 import graphics.Sprite;
 
 import java.io.IOException;
@@ -15,4 +16,10 @@ public class StairsDown extends Tile
         );
         setSettings(sett);
     }
+    @Override
+    public void onTileEnter() throws Exception
+    {
+        SceneHandler.loadDeeperMap();
+    }
+
 }

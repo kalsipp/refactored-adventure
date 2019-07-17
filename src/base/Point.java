@@ -58,8 +58,7 @@ public class Point
     
     public void add(Point other)
     {
-    	x += other.x;
-    	y += other.y;
+        add(other.x, other.y);
     }
 
     public boolean equals(Point other)
@@ -72,4 +71,10 @@ public class Point
 		x *= factor;
 		y *= factor;
 	}
+
+    public void add(int dx, int dy)
+    {
+        x += dx;
+        y += dy;
+    }
 }

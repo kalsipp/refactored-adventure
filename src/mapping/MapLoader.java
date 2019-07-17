@@ -15,23 +15,35 @@ public class MapLoader
         return newMap;
     }
 
+    static boolean isValidChar(char cell)
+    {
+        if(cell == '\n') return true;
+        if(cell < '!') return false;
+        if(cell > '~') return false;
+        return true;
+    }
+
     private static void buildMapFromText(String string, Map newMap) throws Exception
     {
         Point currentPos = Point.zero();
         for(int index = 0; index < string.length(); index++)
         {
             char cell = string.charAt(index);
-            if(cell == '\n')
+            if(isValidChar(cell))
             {
-                currentPos.add(Point.up());
-                currentPos.setX(0);
+                if (cell == '\n')
+                {
+                    currentPos.add(Point.up());
+                    currentPos.setX(0);
+                }
+                else
+                {
+                    Tile newTile = getTileFromChar(cell);
+                    newMap.setTile(currentPos, newTile);
+                    currentPos.add(Point.right());
+                }
             }
-            else
-            {
-                Tile newTile = getTileFromChar(cell);
-                newMap.SetTile(currentPos, newTile);
-                currentPos.add(Point.right());
-            }
+
         }
     }
 
@@ -58,8 +70,12 @@ public class MapLoader
             case 'v':
                 newTile = new StairsDown();
                 break;
+            case 's':
+                newTile = new OpenTileStart();
+                break;
             default:
-                throw new ClassNotFoundException("Unknown cell");
+                int x = ((int) cell);
+                throw new ClassNotFoundException("Unknown cell: " + cell +  "("+ x + ")");
         }
         return newTile;
     }

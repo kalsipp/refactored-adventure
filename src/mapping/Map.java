@@ -13,17 +13,25 @@ public class Map
 		{
 			for(int x = 0; x < size.getX(); x++)
 			{
-				SetTile(new Point(x,y), new Tile());
+				setTile(new Point(x,y), new Tile());
 			}
 		}
 	}
 
-	public boolean IsInsideMap(Point pos)
+	public Point getSize()
+	{
+
+		int y = tiles.length;
+		int x = tiles[0].length;
+		return new Point(x, y);
+	}
+
+	public boolean isInsideMap(Point pos)
 	{
 		return tilesContainPos(pos);
 	}
 	
-	public void SetTile(Point pos, Tile newTile)
+	public void setTile(Point pos, Tile newTile)
 	{
 		if(tilesContainPos(pos))
 		{
@@ -31,9 +39,9 @@ public class Map
 		}
 	}
 
-	public boolean IsTileVisibleAt(Point pos)
+	public boolean isTileVisibleAt(Point pos)
 	{
-		Tile tile = GetTile(pos);
+		Tile tile = getTile(pos);
 		if(tile != null)
 		{
 			return tile.isVisible();
@@ -44,9 +52,9 @@ public class Map
 		}
 	}
 
-	public boolean IsTilePassableAt(Point pos)
+	public boolean isTilePassableAt(Point pos)
 	{
-		Tile tile = GetTile(pos);
+		Tile tile = getTile(pos);
 		if(tile != null)
 		{
 			return tile.isPassable();
@@ -57,7 +65,7 @@ public class Map
 		}
 	}
 	
-	public Tile GetTile(Point pos)
+	public Tile getTile(Point pos)
 	{
 		if(tilesContainPos(pos))
 		{
@@ -69,7 +77,6 @@ public class Map
 		}
 		
 	}
-		
 	
 	private boolean tilesContainPos(Point pos)
 	{
@@ -80,5 +87,24 @@ public class Map
 			return tiles[y].length > x && x >= 0;
 		}
 		return false;
+	}
+
+	public Point getStartingPosition()
+	{
+		Point startPos = null;
+		for(int y = 0; y < tiles.length; y++)
+		{
+			for(int x = 0; x < tiles[y].length; x++)
+			{
+				Point pos = new Point(x,y);
+				Tile tile = getTile(pos);
+				boolean start = tile.isStart();
+				if(start)
+				{
+					startPos = pos;
+				}
+			}
+		}
+		return startPos;
 	}
 }
